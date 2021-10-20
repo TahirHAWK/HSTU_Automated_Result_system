@@ -12,6 +12,10 @@
     <form class="register" name="register" action="/teacherRegister" method="post">
       <h3>Sign Up</h3>
       <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Name</label>
+        <input type="text" class="form-control" name="registerName" aria-describedby="emailHelp">
+      </div>
+      <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email address</label>
         <input type="email" class="form-control" name="registerEmail" aria-describedby="emailHelp">
       </div>
@@ -29,22 +33,20 @@
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-    <form class="register" name="login">
+    <form class="register" name="login" action="/teacherLogin" method="post">
       <h3>Login</h3>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email address</label>
-        <input type="email" class="form-control" name="exampleInputEmail1" aria-describedby="emailHelp">
+        <input type="email" class="form-control" aria-describedby="emailHelp" name="registerEmail">
       </div>
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="password" class="form-control" name="exampleInputPassword1">
+        <input type="password" class="form-control" name="registerPassword">
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
-    <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-    <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-    <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+    
   </div>
 </body>
 </html>

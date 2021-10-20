@@ -1,3 +1,5 @@
+**continue to make register and login feature and set up session with dashboard view.
+
 new package.json: 
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
