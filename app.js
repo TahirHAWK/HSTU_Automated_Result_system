@@ -5,16 +5,16 @@ const MongoStore = require('connect-mongo')(session)
 const flash = require('connect-flash')
 const app = express()
 
-// let sessionOptions = session({
-//     secret: 'javascript is so cool',
-//     store: new MongoStore({client: require('./db')}),
-//     resave: false, 
-//     saveUninitialized: false,
-//     cookie: {maxAge: 1000 * 60 * 60 * 24, httpOnly: true}
-// })
+let sessionOptions = session({
+    secret: 'javascript is so cool',
+    store: new MongoStore({client: require('./db')}),
+    resave: false, 
+    saveUninitialized: false,
+    cookie: {maxAge: 1000 * 60 * 60 * 24, httpOnly: true}
+})
 // cookie maxage property tells sessions how long the session will persists
 // other than maxAge property in cookie, no other property is needed to memorize
-// app.use(sessionOptions)
+app.use(sessionOptions)
 // this line tells express to use sessions
 
 app.use(flash())
