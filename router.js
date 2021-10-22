@@ -14,5 +14,5 @@ router.get('/teacherLogout', teachersController.logOut)
 router.get('/adminHome', adminController.home)
 router.post('/adminRegister', adminController.register)
 router.post('/adminLogin', adminController.login)
-router.post('/adminLogOut', adminController.logOut)
+router.get('/adminLogOut', adminController.logOut)
 module.exports = router

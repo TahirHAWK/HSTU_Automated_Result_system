@@ -56,6 +56,7 @@ exports.login = function(req, res){
 exports.logOut = function(req, res){
     req.session.destroy(function(){
         res.redirect('/')
+       
     })
 }
 

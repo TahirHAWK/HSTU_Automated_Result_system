@@ -85,50 +85,48 @@ Teacher.prototype.detectDuplicate = function(){
 
 
 Teacher.prototype.register =  function(){
-
     let registerPromise = new Promise((resolve, reject) => {
-// adding methods to User object blueprint
-    // step #1: validate user data
-     this.cleanUp()
-    // cleanUp function makes sure that the data is submitted by the user is not an array or an object or anything that is not a string. Also converts the data to usable format.
-     this.validate()
-    // step #2: only if there are no validation errors then save data into a database
-    // step #3: check if that data already exists or not.
-     this.detectDuplicate().then(
-         (result) => {
-             console.log('from register model on resolve: ', this.errors, result)
-             resolve(this.errors)
-            }
-            ).catch((result) => {
+        // adding methods to User object blueprint
+            // step #1: validate user data
+             this.cleanUp()
+            // cleanUp function makes sure that the data is submitted by the user is not an array or an object or anything that is not a string. Also converts the data to usable format.
+             this.validate()
+            // step #2: only if there are no validation errors then save data into a database
+            // step #3: check if that data already exists or not.
+             this.detectDuplicate()
+                .then(
+                 (result) => {
+                     console.log('from register model on resolve: ', this.errors, result)
+                     resolve(this.errors)
+                    }
+                    )
+                .catch(
+                (result) => {
                 console.log('from register model on reject: ', this.errors, result)
-                
-        if(!this.errors.length && result == 'not found'){
-            // if no error is found then it will hash and insert inside db
-            let salt = bcrypt.genSaltSync(10)
-            this.data.registerPassword = bcrypt.hashSync(this.data.registerPassword, salt)
-            teachersAuth.insertOne(this.data).then(
-                console.log('data inserted with password hashing.')
-                )
-                
-                reject('inserted')
+                        
+                if(!this.errors.length && result == 'not found'){
+                    // if no error is found then it will hash and insert inside db
+                    let salt = bcrypt.genSaltSync(10)
+                    this.data.registerPassword = bcrypt.hashSync(this.data.registerPassword, salt)
+                    teachersAuth.insertOne(this.data).then(
+                        console.log('data inserted with password hashing.')
+                        )
+                        
+                        reject('inserted')
+                }
+                else{
+                    console.log('after rejects on model with no duplicate bt cleanup and validation: ',this.errors, result)
+                    resolve(this.errors)
+                    
+                }
+            }
+             )
+            })
+            return registerPromise 
         }
-        else{
-            console.log('after rejects on model with no duplicate bt cleanup and validation: ',this.errors, result)
-            resolve(this.errors)
-            
-        }
-    }
-     )
-    })
-    return registerPromise
-    
         
-    
-    
-}
-
 Teacher.prototype.login = function(){
-        let loginPromise =  new Promise((resolve, reject) => {
+    let loginPromise =  new Promise((resolve, reject) => {
         this.cleanUp()
     teachersAuth.findOne({registerEmail: this.data.registerEmail})
         .then((attemptedUser) => {

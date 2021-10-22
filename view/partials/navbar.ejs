@@ -3,6 +3,7 @@
   <% if(from == 'teacherDashboard'){ %>
     <div class="sidenav">
       <a href="/">Home</a>
+      <a href="/adminHome">For Admin</a>
       <a href="#changePassword">Change Password</a>
       <a href="#courseInfo">CourseInfo</a>
       <a href="/teacherLogout">LogOut</a>
@@ -21,8 +22,10 @@
         </div>
         <% } else if(from == 'adminDashboard'){%>
           <div class="sidenav">
+            <a href="/adminHome">Admin Home</a>
+            <a href="/">Teacher Home</a>
           <a href="#changePassword">Change Password</a>
           <a href="#courseInfo">CourseInfo</a>
-          <a href="#adminLogout">LogOut</a>
+          <a href="/adminLogOut">LogOut</a>
         </div>
           <% } %>
