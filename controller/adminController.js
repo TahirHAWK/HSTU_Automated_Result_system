@@ -15,7 +15,7 @@ exports.register = function(req, res){
         })
         
     } else {
-        
+
     }
 
 }
@@ -34,9 +34,6 @@ exports.logOut = function(req, res){
 exports.home = function(req, res){
     
     let admin = new Admin(req.body)
-    
-    
-
     if(req.session.user){
         res.render('adminDashboard', {registerName: req.session.user.registerName, from: 'adminDashboard'})
     } else {

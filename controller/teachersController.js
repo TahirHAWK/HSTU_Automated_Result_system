@@ -5,7 +5,7 @@ exports.register = function(req, res){
     let teacher = new Teacher(req.body)
     teacher.register().then((result) => {
         if(teacher.errors.length){
-        console.log('from register controller if resolves',teacher.errors)
+        console.log('from register controller if resolves',teacher.errors, result)
         req.flash('errors', teacher.errors)
         req.session.save(function(){
             res.redirect('/')
@@ -14,7 +14,7 @@ exports.register = function(req, res){
     }
     }).catch((errors) => {
         
-            console.log('from register controller if rejects',teacher.errors)
+            console.log('from register controller if rejects', errors)
     
             req.session.user = {favColor: 'blue', registerName: teacher.data.registerName}
             req.session.save(function(){

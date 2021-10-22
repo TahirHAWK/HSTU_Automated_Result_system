@@ -102,14 +102,20 @@ Teacher.prototype.register =  function(){
             ).catch((result) => {
                 console.log('from register model on reject: ', this.errors, result)
                 
-        if(!this.errors.length){
+        if(!this.errors.length && result == 'not found'){
             // if no error is found then it will hash and insert inside db
             let salt = bcrypt.genSaltSync(10)
             this.data.registerPassword = bcrypt.hashSync(this.data.registerPassword, salt)
             teachersAuth.insertOne(this.data).then(
                 console.log('data inserted with password hashing.')
                 )
+                
                 reject('inserted')
+        }
+        else{
+            console.log('after rejects on model with no duplicate bt cleanup and validation: ',this.errors, result)
+            resolve(this.errors)
+            
         }
     }
      )
