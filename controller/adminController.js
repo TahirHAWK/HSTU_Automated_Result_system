@@ -34,7 +34,7 @@ exports.logOut = function(req, res){
 exports.home = function(req, res){
     
     let admin = new Admin(req.body)
-    if(req.session.user){
+    if(req.session.user && req.session.user.loginAs == 'admin'){
         res.render('adminDashboard', {registerName: req.session.user.registerName, from: 'adminDashboard'})
     } else {
         res.render('adminGuest', {errors: req.flash('errors'), from: 'adminGuest'})

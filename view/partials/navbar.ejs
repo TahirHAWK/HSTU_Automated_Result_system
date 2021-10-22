@@ -5,13 +5,13 @@
       <a href="/">Home</a>
       <a href="#changePassword">Change Password</a>
       <a href="#courseInfo">CourseInfo</a>
-      <a href="/adminHome">Log in as Admin</a>
       <a href="/teacherLogout">LogOut</a>
     </div>
     <% } else if (from == 'teacherGuest'){%>
       <div class="sidenav">
         <a href="/">Home</a>
-        <a href="#changePassword">Student Login</a>
+        <a href="#changePassword">For Student</a>
+        <a href="/adminHome">For Admin</a>
         <a href="#contact">Contact</a>
       </div>
       <% } else if(from == 'adminGuest'){ %>
@@ -21,10 +21,8 @@
         </div>
         <% } else if(from == 'adminDashboard'){%>
           <div class="sidenav">
-          <a href="/adminHome">Admin Home</a>
           <a href="#changePassword">Change Password</a>
           <a href="#courseInfo">CourseInfo</a>
-          <a href="/">Log in as Course Teacher</a>
-          <a href="/teacherLogout">LogOut</a>
+          <a href="#adminLogout">LogOut</a>
         </div>
           <% } %>

@@ -16,7 +16,7 @@ exports.register = function(req, res){
         
             console.log('from register controller if rejects', errors)
     
-            req.session.user = {favColor: 'blue', registerName: teacher.data.registerName}
+            req.session.user = {favColor: 'blue', registerName: teacher.data.registerName, registerEmail: teacher.data.registerEmail, loginAs: 'teacher'}
             req.session.save(function(){
                 res.redirect('/')
             })
@@ -33,7 +33,7 @@ exports.login = function(req, res){
     .then(function(result){
         // setting up sessions
         console.log('result after executing teacher.login() function:',result)
-        req.session.user = {favColor: 'blue', registerEmail: result.registerEmail, registerName: result.registerName}
+        req.session.user = {favColor: 'blue', registerEmail: result.registerEmail, registerName: result.registerName, loginAs: 'teacher'}
         console.log(req.session.user)
         // even though in the upper line, while updating the session object, its also sends the data to mongodb and then redirects, as accessing db is async process we need to manually save the data to db so that we can set its next process of redirect as it is done.
         req.session.save(function(){
@@ -64,7 +64,7 @@ exports.home = function(req, res){
        
     let teacher = new Teacher(req.body)
  
-        if(req.session.user){
+        if(req.session.user && req.session.user.loginAs == 'teacher'){
             res.render('teacherDashboard', {registerName: req.session.user.registerName, from: 'teacherDashboard'})
         } else {
             res.render('teacherGuest', {errors: req.flash('errors'), from: 'teacherGuest'})
