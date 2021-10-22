@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const teachersController = require('./controller/teachersController')
 const adminController = require('./controller/adminController')
+const studentsController = require('./controller/studentsController')
 
 // teacher related routes
 router.get('/', teachersController.home)
@@ -15,4 +16,11 @@ router.get('/adminHome', adminController.home)
 router.post('/adminRegister', adminController.register)
 router.post('/adminLogin', adminController.login)
 router.get('/adminLogOut', adminController.logOut)
+
+// student related routes
+router.get('/studentHome', studentsController.home)
+router.post('/studentRegister', studentsController.register)
+router.post('/studentLogin', studentsController.login)
+router.get('/studentLogOut', studentsController.logOut)
+
 module.exports = router

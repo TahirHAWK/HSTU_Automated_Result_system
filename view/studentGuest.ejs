@@ -1,0 +1,61 @@
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+
+<body>
+    <%- include('./partials/navbar.ejs') %>
+
+  
+  <div class="main">
+
+    <% errors.forEach(function(message){ %>
+      <div class="alert alert-danger text-center"><%= message %></div>
+    <% }) %>
+    
+    <h2>Students Home Page</h2>
+    <h3>Welcome</h3>
+    <div class="forms">
+    <form class="register" name="register" action="/studentRegister" method="post">
+      <h3>Sign Up</h3>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Name</label>
+        <input type="text" class="form-control" name="registerName" aria-describedby="emailHelp">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">ID number</label>
+        <input type="number" class="form-control" name="registerID" aria-describedby="emailHelp">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input type="email" class="form-control" name="registerEmail" aria-describedby="emailHelp">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Faculty</label>
+        <input type="text" class="form-control" name="registerFaculty" aria-describedby="emailHelp">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Department</label>
+        <input type="text" class="form-control" name="registerDepartment" aria-describedby="emailHelp">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input type="password" class="form-control" name="registerPassword">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <form class="register" name="login" action="/studentLogin" method="post">
+      <h3>Login</h3>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Student ID number</label>
+        <input type="number" class="form-control" aria-describedby="emailHelp" name="registerID">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input type="password" class="form-control" name="registerPassword">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+    
+  </div>
+</body>
+</html>
