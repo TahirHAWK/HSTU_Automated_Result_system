@@ -28,8 +28,13 @@
           </p>
           <a href="/admin/courses/<%=  course.course_code %>" class="btn btn-primary">Assign Teacher</a>
         </div>
+        <% if(course.assignedTeacher){ %>
+        <div class="card-footer text-muted">Assigned Teacher: <%= course.assignedTeacher %></div>
+      </div>
+       <% } else { %>
         <div class="card-footer text-muted">Assigned Teacher: none</div>
       </div>
+        <% } %>
       <% } %>
  
       <% }) %>
