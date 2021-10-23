@@ -3,7 +3,7 @@ const teachersAuth = require('../db').db().collection('teachersAuth')
 const courseInfo = require('../db').db().collection('courseInfo')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
-
+   
 
 let Admin = function(data){
     this.data = data;

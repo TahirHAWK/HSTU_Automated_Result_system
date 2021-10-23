@@ -1,6 +1,6 @@
 const Admin = require('../model/Admin')
 
-
+ 
 
 
 exports.register = function(req, res){
@@ -86,7 +86,7 @@ exports.home = function(req, res){
 
 
 exports.assignTeacher = function(req, res){
-    console.log(req.session.admin)
+    console.log(req.params.id)
     let courseCodeNow = req.params.id
     let admin = new Admin(req.session.admin)
     admin.showAllTeachers().then(
@@ -102,6 +102,11 @@ exports.assignTeacher = function(req, res){
     
 }
 
+exports.assignConfirm = function(req, res){
+    console.log(req.params)
+    res.redirect(`/admin/courses/${req.params.id}`)
+}
+ 
 
 
 

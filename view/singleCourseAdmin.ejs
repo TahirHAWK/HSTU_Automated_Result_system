@@ -1,17 +1,18 @@
 <html lang="en">
-    <%- include('./partials/head.ejs') %>
+  <%- include('./partials/head.ejs') %>
 
 <body>
+  <script src="index.css"></script>
     <%- include('./partials/navbar.ejs') %>
 
-  
+
   
   <div class="main">
 
     <h3><%= courseCodeNow %></h3>
     <h2>Available teachers:</h2>
 
-
+    <div class="card_holder">
      <% teacherData.forEach((teacher) => { %>
         <div class="card text-center">
             <div class="card-header"><%= teacher.registerName %></div>
@@ -20,13 +21,13 @@
               <p class="card-text">
                 <%= teacher.registerEmail %>
               </p>
-              <a href="#" class="btn btn-primary">Assign</a>
+              <a href="/admin/courses/<%= courseCodeNow %>/<%= teacher.registerName %>/<%= teacher._id %>" class="btn btn-primary">Assign</a>
             </div>
             <div class="card-footer text-muted">Assign status: none/assigned</div>
           </div>
     
     <% }) %> 
-    
+  </div>
   </div>
 </body>
 </html>
