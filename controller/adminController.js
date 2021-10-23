@@ -92,7 +92,7 @@ exports.assignTeacher = function(req, res){
     admin.showAllTeachers().then(
         (result) =>{
             res.render('singleCourseAdmin', {teacherData: result, courseCodeNow, from: 'adminDashboard'}) 
-        }
+        } 
     ).catch(
         (error) => { 
             console.log('cannot show teachers, in assignTeacher from admin controller.', error)
