@@ -30,6 +30,7 @@ body {
     margin-left: 160px; /* Same as the width of the sidenav */
     font-size: 28px; /* Increased text to enable scrolling */
     padding: 0px 10px;
+    text-align: center;
   }
   
   @media screen and (max-height: 450px) {
@@ -49,4 +50,15 @@ body {
     width: 600px;
     border: 1px solid black;
     padding: 10px;
+  }
+  .card_holder {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-content: center;
+    flex-wrap: wrap;
+  }
+  .card{
+    width: 500px;
+    margin: 10px;
   }

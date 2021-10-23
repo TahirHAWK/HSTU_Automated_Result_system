@@ -16,6 +16,7 @@ router.get('/adminHome', adminController.home)
 router.post('/adminRegister', adminController.register)
 router.post('/adminLogin', adminController.login)
 router.get('/adminLogOut', adminController.logOut)
+router.get('/admin/courses/:id', adminController.assignTeacher)
 
 // student related routes
 router.get('/studentHome', studentsController.home)

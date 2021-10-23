@@ -1,4 +1,6 @@
 const adminAuth = require('../db').db().collection('adminAuth')
+const teachersAuth = require('../db').db().collection('teachersAuth')
+const courseInfo = require('../db').db().collection('courseInfo')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
 
@@ -144,6 +146,44 @@ Admin.prototype.login = function(){
     })
     return loginPromise
 }
+
+Admin.prototype.showAllCourses = function(){
+    let showCoursePromise = new Promise((resolve, reject) => {
+        this.cleanUp()
+        this.validate()
+        console.log('from show all courses model: ', this.data)
+        courseInfo.find({assignedDepartment: this.data.registerDepartment}).sort({course_code: -1}).toArray().then((result) => {
+            resolve(result)
+        })
+        .catch(
+            (error) => {
+                console.log(error)
+                reject(error)
+            }
+        )
+
+    })
+    return showCoursePromise
+}
+
+Admin.prototype.showAllTeachers = function(){
+    let showTeachersPromise = new Promise((resolve, reject) => {
+        console.log('from show all teachers model: ', this.data)
+        teachersAuth.find({registerDepartment: this.data.registerDepartment}).toArray().then((result) => {
+            resolve(result)
+        })
+        .catch(
+            (error) => {
+                console.log(error)
+                reject(error)
+            }
+        )
+
+    })
+    return showTeachersPromise
+}
+
+
 
 
 module.exports = Admin

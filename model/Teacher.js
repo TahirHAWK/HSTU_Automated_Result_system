@@ -14,6 +14,9 @@ Teacher.prototype.cleanUp = function(){
     if(typeof(this.data.registerEmail) != 'string'){
         this.data.registerEmail = '';
     }
+    if(typeof(this.data.registerDesignation) != 'string'){
+        this.data.registerDesignation = '';
+    }
     if(typeof(this.data.registerFaculty) != 'string'){
         this.data.registerFaculty = '';
     }
@@ -29,6 +32,7 @@ Teacher.prototype.cleanUp = function(){
     this.data = {
         registerName: this.data.registerName.trim(),
         registerEmail: this.data.registerEmail.trim().toLowerCase(),
+        registerDesignation: this.data.registerDesignation.trim(),
         registerFaculty: this.data.registerFaculty.trim().toUpperCase(),
         registerDepartment: this.data.registerDepartment.trim().toUpperCase(),
         registerPassword: this.data.registerPassword
@@ -44,6 +48,8 @@ Teacher.prototype.validate = function(){
         this.errors.push(' You must provide a username ')}
     if(this.data.registerEmail == ""){
         this.errors.push(' You must provide an Email ')}
+    if(this.data.registerDesignation == ""){
+        this.errors.push(' You must provide your designation ')}
     if(this.data.registerFaculty == ""){
         this.errors.push(' You must provide your faculty name ')}
     if(this.data.registerDepartment == ""){

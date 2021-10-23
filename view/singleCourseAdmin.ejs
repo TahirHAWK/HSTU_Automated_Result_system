@@ -1,0 +1,32 @@
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+
+<body>
+    <%- include('./partials/navbar.ejs') %>
+
+  
+  
+  <div class="main">
+
+    <h3><%= courseCodeNow %></h3>
+    <h2>Available teachers:</h2>
+
+
+     <% teacherData.forEach((teacher) => { %>
+        <div class="card text-center">
+            <div class="card-header"><%= teacher.registerName %></div>
+            <div class="card-body">
+              <h5 class="card-title"><%= teacher.registerDesignation %></h5>
+              <p class="card-text">
+                <%= teacher.registerEmail %>
+              </p>
+              <a href="" class="btn btn-primary">Assign</a>
+            </div>
+            <div class="card-footer text-muted">Assign status: none/assigned</div>
+          </div>
+    
+    <% }) %> 
+    
+  </div>
+</body>
+</html>
