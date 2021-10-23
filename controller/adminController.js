@@ -2,6 +2,14 @@ const Admin = require('../model/Admin')
 
  
 
+exports.isVisitorOwner = function(req, res, next){
+    if(req.session.admin && req.session.admin.loginAs == 'admin'){
+        next()
+    } else{
+        res.redirect('/')
+    }
+}
+
 
 exports.register = function(req, res){
     let admin = new Admin(req.body)

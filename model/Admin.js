@@ -152,7 +152,7 @@ Admin.prototype.showAllCourses = function(){
         this.cleanUp()
         this.validate()
         console.log('from show all courses model: ', this.data)
-        courseInfo.find({assignedDepartment: this.data.registerDepartment}).sort({course_code: -1}).toArray().then((result) => {
+        courseInfo.find({assignedDepartment: this.data.registerDepartment}).sort({course_code: 1}).toArray().then((result) => {
             resolve(result)
         })
         .catch(
