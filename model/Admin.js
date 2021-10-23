@@ -183,6 +183,26 @@ Admin.prototype.showAllTeachers = function(){
 }
 
 
+Admin.prototype.assignConfirm = function(){
+    console.log('from assignconfirm model ',this.data)
+    let assignPromise = new Promise((resolve, reject) => {
+        courseInfo.findOneAndUpdate({course_code: this.data.id}, {$set: {assignedTeacher: this.data.assignedTeacher, assignedTeacherID: this.data.assignedTeacherID}})
+        .then(
+            (result) => {
+                console.log('from assignconfirm model, on resolve: ', result)
+                resolve(result)
+            }
+            )
+            .catch((error) => {
+            console.log('from assignconfirm model, on reject: ', error)
+                reject(error)
+            }
+
+        )
+    })
+    return assignPromise
+}
+
 
 
 module.exports = Admin

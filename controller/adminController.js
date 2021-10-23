@@ -103,8 +103,21 @@ exports.assignTeacher = function(req, res){
 }
 
 exports.assignConfirm = function(req, res){
-    console.log(req.params)
-    res.redirect(`/admin/courses/${req.params.id}`)
+    let admin = new Admin(req.params)
+    admin.assignConfirm().then(
+        (result) => {
+            
+            console.log('on assignconfirm controller, on resolve: ', result)
+            res.redirect(`/admin/courses/${req.params.id}`)
+        }
+        ).catch(
+            (error) => {
+                console.log('on assignconfirm controller, on reject: ', error)
+            res.redirect(`/admin/courses/${req.params.id}`)
+                
+            }
+
+    )
 }
  
 
