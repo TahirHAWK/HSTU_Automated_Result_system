@@ -70,7 +70,6 @@ exports.home = function(req, res){
         admin.showAllCourses() 
         .then((result) =>{
             res.render('adminDashboard', {registerName: req.session.admin.registerName, courseData: result, from: 'adminDashboard'})
-            console.log('from     adminController: ')
         })         
             .catch((error) => 
                 { 
@@ -92,7 +91,7 @@ exports.assignTeacher = function(req, res){
     let admin = new Admin(req.session.admin)
     admin.showAllTeachers().then(
         (result) =>{
-            res.render('singleCourseAdmin', {teacherData: result, courseCodeNow, from: 'adminDashboard'})
+            res.render('singleCourseAdmin', {teacherData: result, courseCodeNow, from: 'adminDashboard'}) 
         }
     ).catch(
         (error) => { 

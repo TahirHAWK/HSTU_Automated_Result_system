@@ -168,7 +168,6 @@ Admin.prototype.showAllCourses = function(){
 
 Admin.prototype.showAllTeachers = function(){
     let showTeachersPromise = new Promise((resolve, reject) => {
-        console.log('from show all teachers model: ', this.data)
         teachersAuth.find({registerDepartment: this.data.registerDepartment}).toArray().then((result) => {
             resolve(result)
         })
