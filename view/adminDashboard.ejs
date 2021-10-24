@@ -19,17 +19,21 @@
     <div class="card_holder">
         <% courseData.forEach((course) => { %>
           <% if(course.levelSemester == ('level '+  i +  ' semester '+  j)) {%>
-        <div class="card text-center">
+        <div class="card text-center" id="<%= course.course_code %>">
         <div class="card-header"><%= course.course_code %></div>
         <div class="card-body">
           <h5 class="card-title"><%= course.course_title %></h5>
           <p class="card-text">
             Degree: <%= course.degree %> <br> <%= course.levelSemester %> <br> credits: <%= course.credit %> <br> 
           </p>
-          <a href="/admin/courses/<%=  course.course_code %>" class="btn btn-primary">Assign Teacher</a>
-        </div>
+          <% if(course.assignedTeacher){ %> 
+           <a href="/admin/courses/<%=  course.course_code %>" class="btn btn-outline-success">Ressign Teacher</a>
+        <% } else { %>
+          <a href="/admin/courses/<%=  course.course_code %>" class="btn btn-outline-secondary">Assign Teacher</a>
+          <% } %>
+        </div>    
         <% if(course.assignedTeacher){ %>
-        <div class="card-footer text-muted">Assigned Teacher: <%= course.assignedTeacher %></div>
+        <div class="card-footer p-3 mb-2 bg-success text-white">Assigned Teacher: <%= course.assignedTeacher %></div>
       </div>
        <% } else { %>
         <div class="card-footer text-muted">Assigned Teacher: none</div>

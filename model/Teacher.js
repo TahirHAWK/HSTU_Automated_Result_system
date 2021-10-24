@@ -1,4 +1,5 @@
 const teachersAuth = require('../db').db().collection('teachersAuth')
+const courseInfo = require('../db').db().collection('courseInfo')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
 
@@ -152,5 +153,24 @@ Teacher.prototype.login = function(){
     return loginPromise
 }
 
+
+Teacher.prototype.fetchAssignedCourses = function(){
+    console.log('from fetchAssignedCoures, ', this.data.teacherID)
+    let fetchCoursePromise = new Promise((resolve, reject) => {
+        courseInfo.find({assignedTeacherID: this.data.teacherID }).toArray()
+        .then( 
+            (result) => {
+                console.log(result)
+                resolve(result)
+            }
+        ).catch( 
+            (errors) => {
+                console.log('cannot find fetch courses for this teacher(on fetchAssignedCourses model).')
+                reject(errors)
+            }
+        )
+    })
+    return fetchCoursePromise
+}
 
 module.exports = Teacher
