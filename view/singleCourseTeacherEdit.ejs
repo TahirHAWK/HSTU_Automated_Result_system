@@ -1,5 +1,6 @@
 <html lang="en">
     <%- include('./partials/head.ejs') %>
+    
 
 <body>
     <%- include('./partials/navbar.ejs') %>
@@ -59,6 +60,7 @@
       <input type="submit" class="btn btn-outline-info" value="Submit">
     </form>
     <a href="/courses/grading/<%= course_code %>"><button class="btn btn-outline-info">Goto Previous Page</button></a>
+    <%- include('./partials/footer.ejs') %>
   </div>
 </body>
 </html>
