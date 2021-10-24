@@ -38,7 +38,30 @@ Old package.json:
     "validator": "^13.6.0"
 
 
+eta amr academic ekta software project er jnno data collection er form, kindly sobai fillup krben asha kori, nij department ar course niye jar jeituku idea ase fillup krben, department er chariman er form e tadr simple data gula diben, same goes to teachers.
 
+Teacher der info er jnno ei form:
+https://forms.gle/dMvEwA7vB1yJCMqv8
+
+Eta course er data collection er jnno, jotogula possible course data diben sobai:
+https://forms.gle/H5oPhL9L6a564BmJ7
+
+ar eta department er chairman, course, teachers der data collection er jnno, 
+https://forms.gle/GyCrC9hyjUC8nX17A
+
+
+
+
+// view design
+
+course code: CSE 255
+course name: machine learning
+external: 
+teacher name: Marjan
+
+<hr>
+
+'sl' "ID number" "Name" "Mid" "Quiz/Assignment" "Attendance" "finalA" "finalB" "Total" "Grade Total"
 
 
 

@@ -1,0 +1,64 @@
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+
+<body>
+    <%- include('./partials/navbar.ejs') %>
+
+  
+  <div class="main">
+
+    
+
+
+    <h3>Welcome to Teachers Dashboard</h3>
+    <h2>Course code: <%= course_code %></h2>
+   <a href="/courses/grading/edit/<%= course_code %>"><button type="button" class="btn btn-outline-info">Assign or Edit Grades</button></a> 
+
+    <table class="table table-sm table table-striped table table-hover">
+        <thead>
+            <tr>
+              <th scope="col">Course Title:</th>
+              <th scope="col">Machine Learning</th>
+              <th scope="col">Credit hours:</th>
+              <th scope="col">3</th>
+              <th scope="col">Full Marks:</th>
+              <th scope="col">150</th>
+              <th scope="col">Name of Examiner: </th>
+              <th scope="col">1. Dr. Md. Arshad Ali(Primary),</th>
+              <th scope="col">2. Adiba Mahjabin Nitu(External)</th>
+            </tr>
+          <tr>
+            <th scope="col">ID Number</th>
+            <th scope="col">Attendance</th>
+            <th scope="col">Class Test</th>
+            <th scope="col">Mid</th>
+            <th scope="col">Final(Section A)</th>
+            <th scope="col">Final(Section B)</th>
+            <th scope="col">Total</th>
+            <th scope="col">Marks(%)</th>
+            <th scope="col">Letter Grade</th>
+            <th scope="col">Grade Point</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% grade.forEach((grade) => { %>
+          <tr>
+            <th scope="row"><%= grade.ID_Number %></th>
+            <td><%= grade.ID_Number %></td>
+            <td><%= grade.Attendance %></td>
+            <td><%= grade.ClassTest %></td>
+            <td><%= grade.Mid %></td>
+            <td><%= grade.FinalA %></td>
+            <td><%= grade.FinalB %></td>
+            <td><%= grade.Total %></td>
+            <td><%= grade.Marks %></td>
+            <td><%= grade.LetterGrade %></td>
+            <td><%= grade.GradePoint %></td>
+          </tr>
+          <% }) %>
+          
+        </tbody>
+      </table>
+  </div>
+</body>
+</html>

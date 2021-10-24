@@ -84,3 +84,41 @@ exports.home = function(req, res){
         }
 }
 
+exports.gradingSystem = function(req, res){
+
+        let teacher = new Teacher(req.params)
+        teacher.showCourseGrades().then(
+            (grade) => {
+                res.render('singleCourseTeacher', {course_code: req.params.course_code, grade: grade, from: 'teacherDashboard'})
+            }
+        )
+        .catch(
+            (error) =>{
+                console.log(error)
+            }
+        )
+
+    }
+
+
+
+
+exports.gradingSystemEdit = function(req, res){
+    let teacher = new Teacher(req.params)
+    teacher.showCourseGrades().then(
+        (grade) => {
+            res.render('singleCourseTeacherEdit', {course_code: req.params.course_code, grade: grade, from: 'teacherDashboard'})
+        }
+    )
+    .catch(
+        (error) =>{
+            console.log(error)
+        }
+    )
+
+}
+
+exports.gradeSubmitTemp = function (req, res){
+    console.log(req.body,'<-- from gradeSubmitTemp ' )
+    res.redirect(`/courses/grading/edit/${req.params.course_code}`)
+}

@@ -1,5 +1,6 @@
 const teachersAuth = require('../db').db().collection('teachersAuth')
 const courseInfo = require('../db').db().collection('courseInfo')
+const gradeInfo = require('../db').db().collection('gradeInfo')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
 
@@ -158,7 +159,7 @@ Teacher.prototype.fetchAssignedCourses = function(){
     console.log('from fetchAssignedCoures, ', this.data.teacherID)
     let fetchCoursePromise = new Promise((resolve, reject) => {
         courseInfo.find({assignedTeacherID: this.data.teacherID }).toArray()
-        .then( 
+        .then(  
             (result) => {
                 console.log(result)
                 resolve(result)
@@ -171,6 +172,24 @@ Teacher.prototype.fetchAssignedCourses = function(){
         )
     })
     return fetchCoursePromise
+}
+
+
+Teacher.prototype.showCourseGrades = function(){
+    console.log('from showCourseGrades', this.data.course_code)
+    let showGradePromise = new Promise((resolve, reject) => {
+        gradeInfo.find({Coursecode: this.data.course_code}).toArray().then(
+            (grade) => {
+                resolve(grade)
+            }
+        ) 
+        .catch(
+            (error) =>{
+                reject('Cannot find data.')
+            }
+        )
+    })
+    return showGradePromise
 }
 
 module.exports = Teacher

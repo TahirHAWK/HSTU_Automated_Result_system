@@ -62,3 +62,26 @@ body {
     width: 500px;
     margin: 10px;
   }
+
+  /* for grading table */
+
+  th {
+    color: navy;
+  }
+
+  table{
+    border: 1px solid black;
+    margin-top: 15px;
+    font-size: small;
+  }
+
+   input{
+    width: 50px;
+
+  }
+  
+  input[type="submit"]{
+
+    width: fit-content;
+
+  }

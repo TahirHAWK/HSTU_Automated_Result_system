@@ -9,8 +9,11 @@ router.get('/', teachersController.home)
 router.post('/teacherRegister', teachersController.register)
 router.post('/teacherLogin', teachersController.login)
 router.get('/teacherLogout', teachersController.logOut)
+router.get('/courses/grading/:course_code', teachersController.gradingSystem)
+router.post('/courses/grading/:course_code', teachersController.gradeSubmitTemp)
+router.get('/courses/grading/edit/:course_code', teachersController.gradingSystemEdit)
 
-
+ 
 // admin related routes
 router.get('/adminHome', adminController.home)
 router.post('/adminRegister', adminController.register)

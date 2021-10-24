@@ -20,9 +20,9 @@
         <% courseData.forEach((course) => { %>
           <% if(course.levelSemester == ('level '+  i +  ' semester '+  j)) {%>
         <div class="card text-center" id="<%= course.course_code %>">
-        <div class="card-header"><%= course.course_code %></div>
+        <div class="card-header"><%= course.course_title %></div>
         <div class="card-body">
-          <h5 class="card-title"><%= course.course_title %></h5>
+          <h5 class="card-title">Course code: <%= course.course_code %></h5>
           <p class="card-text">
             Degree: <%= course.degree %> <br> <%= course.levelSemester %> <br> credits: <%= course.credit %> <br> 
           </p>
