@@ -43,16 +43,16 @@
             <form action="/courses/grading/<%= course_code %>" method="post">
               <% grade.forEach((grade) => { %>
           <tr>
-            <th scope="row"><%= grade.ID_Number %><input type = "hidden" name = "studentID" value = "<%= grade.ID_Number %>" /></th>
-            <td><input type="number" name="attendance" value="<%= grade.Attendance %>"></td>
-            <td><input type="number" name="classTest" value="<%= grade.ClassTest %>"></td>
-            <td><input type="number" name="mid" value="<%= grade.Mid %>"></td>
-            <td><input type="number" name="finalA" value="<%= grade.FinalA %>"></td>
-            <td><input type="number" name="finalB" value="<%= grade.FinalB %>"></td>
-            <td>150<input type = "hidden" name = "total" value = "150" /></td>
-            <td>100<input type = "hidden" name = "marks" value = "100" /></td>
-            <td>A+<input type = "hidden" name = "grade" value = "A+" /></td>
-            <td>4.00<input type = "hidden" name = "GPA" value = "4.00" /></td>
+            <th scope="row"><%= grade.ID_Number %><input type = "hidden" name = "ID_Number" value = "<%= grade.ID_Number %>" /></th>
+            <td><input type="number" name="Attendance" value="<%= grade.Attendance %>"></td>
+            <td><input type="number" name="ClassTest" value="<%= grade.ClassTest %>"></td>
+            <td><input type="number" name="Mid" value="<%= grade.Mid %>"></td>
+            <td><input type="number" name="FinalA" value="<%= grade.FinalA %>"></td>
+            <td><input type="number" name="FinalB" value="<%= grade.FinalB %>"></td>
+            <td><%= grade.Total %><input type="hidden" name="Coursecode" value="<%= course_code %>"></td>
+            <td><%= grade.Marks %></td>
+            <td><%= grade.LetterGrade %></td>
+            <td><%= grade.GradePoint %></td>
           </tr>
           <% }) %>
         </tbody>

@@ -77,11 +77,12 @@ body {
 
    input{
     width: 50px;
-
+    
   }
   
   input[type="submit"]{
-
+    background: navy;
+    color: white;
     width: fit-content;
 
   }
