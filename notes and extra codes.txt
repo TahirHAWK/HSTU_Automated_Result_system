@@ -52,16 +52,17 @@ https://forms.gle/GyCrC9hyjUC8nX17A
 
 
 
-// view design
+    let x = 7
+let y
+( (x<5) ?  (y = console.log('its 5')) : ( (x = 7) ? (y= console.log('Im lucky')) : (y = console.log('not lucky' ) )) )
 
-course code: CSE 255
-course name: machine learning
-external: 
-teacher name: Marjan
+console.log(y)
 
-<hr>
 
-'sl' "ID number" "Name" "Mid" "Quiz/Assignment" "Attendance" "finalA" "finalB" "Total" "Grade Total"
+
+
+
+}
 
 
 

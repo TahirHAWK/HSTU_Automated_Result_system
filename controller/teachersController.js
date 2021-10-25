@@ -118,107 +118,29 @@ exports.gradingSystemEdit = function(req, res){
 
 }
 // ['1','2','3']
-exports.gradeSubmitTemp = function (req, res){
-    let course_code = req.body.Coursecode[1]
-    let formDataArray = req.body 
-    let formDataObject = []
-    for( i = 0; i < formDataArray.ID_Number.length; i++ ){
-            let total = (Number(formDataArray.Attendance[i]) + Number(formDataArray.ClassTest[i]) + Number(formDataArray.Mid[i]) + Number(formDataArray.FinalA[i]) + Number(formDataArray.FinalB[i]))
 
-            let marks = ((100*Number(total))/150)
-
-            let letterGrade
-            let gradePoint
-
-            if (marks >= 80) {
-                letterGrade = 'A+';
-                gradePoint = 4.00;
-            }
-            else {
-                if (marks >= 75 && marks <= 79) {
-                    letterGrade = 'A';
-                    gradePoint = 3.75
-                }
-                else {
-                    if (marks >= 70 && marks <= 74) {
-                        letterGrade = 'A-';
-                        gradePoint = 3.50
-                    }
-                    else {
-                        if (marks >= 65 && marks <= 69) {
-                            letterGrade = 'B+';
-                            gradePoint = 3.25
-                        }
-                        else {
-                            if (marks >= 60 && marks <= 64) {
-                                letterGrade = 'B';
-                                gradePoint = 3.00
-                            } else{
-                                if (marks >= 55 && marks <= 59) {
-                                    letterGrade = 'B-';
-                                    gradePoint = 2.75
-                                } else{
-                                    if (marks >= 50 && marks <= 54) {
-                                        letterGrade = 'C+';
-                                        gradePoint = 2.50
-                                    } else{
-                                        if (marks >= 45 && marks <= 49) {
-                                            letterGrade = 'C';
-                                            gradePoint = 2.25
-                                        } else{
-                                            if (marks >= 40 && marks <= 44) {
-                                                letterGrade = 'D';
-                                                gradePoint = 2.00
-                                            } else{
-                                                if (marks < 40) {
-                                                    letterGrade = 'F';
-                                                    gradePoint = 0.00
-                                                } else{
-                                                    
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                }
-
-                            }
-                        }
-                    }
-                }
-            }
-
-         attendance1 = {
-            ID_Number: formDataArray.ID_Number[i], 
-            Attendance: formDataArray.Attendance[i], 
-            ClassTest: formDataArray.ClassTest[i],
-            Mid: formDataArray.Mid[i],
-            FinalA: formDataArray.FinalA[i],
-            FinalB: formDataArray.FinalB[i],
-            Coursecode: formDataArray.Coursecode[i],
-            Total: total,
-            Marks: marks,
-            LetterGrade: letterGrade,
-            GradePoint: gradePoint,
-            Coursecode: course_code
-            }
-        formDataObject.push(attendance1)
-    }
-
-    gradeInfo.deleteMany({Coursecode: course_code}).then(
-        (s) => {
-            gradeInfo.insertMany(formDataObject).then(
-                (ss) => {
+exports.gradeSubmitTemp = function(req, res){
+    let teacher = new Teacher(req.body)
+    teacher.convertDataForDB().then(
+        (result) => {
+            teacher.submitTeacherGrade(result).then(
+                (result) => {
                     console.log( req.body,'<-- from gradeSubmitTemp ' )
                     res.redirect(`/courses/grading/edit/${req.params.course_code}`)
                 }
+            ).catch(
+                (error) => {
+                    console.log('cannot submit from gradeSubmitTemp:')
+                }
             )
-
+        }
+    ).catch(
+        (error) => {
+            console.log('cannot submit data from gradeSubmitTemp: ', error)
         }
     )
 
-
-
-
-
 }
+
+
+
