@@ -52,17 +52,17 @@ https://forms.gle/GyCrC9hyjUC8nX17A
 
 
 
-    let x = 7
-let y
-( (x<5) ?  (y = console.log('its 5')) : ( (x = 7) ? (y= console.log('Im lucky')) : (y = console.log('not lucky' ) )) )
 
-console.log(y)
-
-
-
-
-
-}
-
+    let teacher = new Teacher(req.params)
+    teacher.showCourseGrades().then(
+        (grade) => {
+            res.render('singleCourseTeacherEdit', {course_code: req.params.course_code, grade: grade, from: 'teacherDashboard'})
+        }
+    )
+    .catch(
+        (error) =>{
+            console.log(error)
+        }
+    )
 
 

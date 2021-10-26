@@ -195,13 +195,14 @@ Teacher.prototype.showCourseGrades = function(){
 Teacher.prototype.convertDataForDB = function(){
 
     let convertPromise = new Promise((resolve, reject) => {
+        let totalMarks = this.data.totalMarks
         let course_code = this.data.Coursecode[1]
         let formDataArray = this.data 
         let formDataObject = []
         for( i = 0; i < formDataArray.ID_Number.length; i++ ){
                 let total = (Number(formDataArray.Attendance[i]) + Number(formDataArray.ClassTest[i]) + Number(formDataArray.Mid[i]) + Number(formDataArray.FinalA[i]) + Number(formDataArray.FinalB[i]))
     
-                let marks = ((100*Number(total))/150)
+                let marks = ((100*Number(total))/Number(totalMarks))
     
                 let letterGrade
                 let gradePoint

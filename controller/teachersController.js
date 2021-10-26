@@ -86,10 +86,19 @@ exports.home = function(req, res){
 
 exports.gradingSystem = function(req, res){
 
-        let teacher = new Teacher(req.params)
-        teacher.showCourseGrades().then(
-            (grade) => {
-                res.render('singleCourseTeacher', {course_code: req.params.course_code, grade: grade, from: 'teacherDashboard'})
+        let teacher = new Teacher(req.session.user)
+        teacher.fetchAssignedCourses().then(
+            (courses) =>{
+                let fetchedCourses = courses;
+                teacher = new Teacher(req.params)
+                teacher.showCourseGrades().then(
+                    (grade) => {
+                        console.log('from grading system function controller: ', courses)
+                        let totalMarks
+                        res.render('singleCourseTeacher', {course_code: req.params.course_code, grade: grade, coursesData: fetchedCourses,totalMarks, from: 'teacherDashboard'})
+                    }
+                )
+
             }
         )
         .catch(
@@ -104,10 +113,20 @@ exports.gradingSystem = function(req, res){
 
 
 exports.gradingSystemEdit = function(req, res){
-    let teacher = new Teacher(req.params)
-    teacher.showCourseGrades().then(
-        (grade) => {
-            res.render('singleCourseTeacherEdit', {course_code: req.params.course_code, grade: grade, from: 'teacherDashboard'})
+
+    let teacher = new Teacher(req.session.user)
+    teacher.fetchAssignedCourses().then(
+        (courses) =>{
+            let fetchedCourses = courses;
+            teacher = new Teacher(req.params)
+            teacher.showCourseGrades().then(
+                (grade) => {
+                    console.log('from grading system function controller: ', courses)
+                    let totalMarks
+                    res.render('singleCourseTeacherEdit', {course_code: req.params.course_code, grade: grade, coursesData: fetchedCourses,totalMarks, from: 'teacherDashboard'})
+                }
+            )
+
         }
     )
     .catch(
@@ -115,6 +134,7 @@ exports.gradingSystemEdit = function(req, res){
             console.log(error)
         }
     )
+
 
 }
 // ['1','2','3']

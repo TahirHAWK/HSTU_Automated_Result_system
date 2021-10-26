@@ -13,19 +13,28 @@
 
     <h3>Welcome to Teachers Dashboard</h3>
     <h2>Course code: <%= course_code %></h2>
+    <hr>
     <table class="table table-sm table table-striped table table-hover">
         <thead>
+          <% coursesData.forEach((courseData) => {  %>
+            <% if(courseData.course_code == course_code){ %>
             <tr>
               <th scope="col">Course Title:</th>
-              <th scope="col">Machine Learning</th>
+              <th scope="col" style="color: black"><%= courseData.course_title %></th>
               <th scope="col">Credit hours:</th>
-              <th scope="col">3</th>
+              <th scope="col" style="color: black"><%= courseData.credit %></th>
               <th scope="col">Full Marks:</th>
-              <th scope="col">150</th>
+              <th scope="col" style="color: black">
+                <% (  courseData.credit == 3 ) ? ( totalMarks = 150 ) :( (courseData.credit == 2 ) ? ( totalMarks = 100 ) :  (totalMarks = 100 )) %>
+                <%= totalMarks %>
+                
+                </th>
               <th scope="col">Name of Examiner: </th>
-              <th scope="col">1. Dr. Md. Arshad Ali(Primary),</th>
-              <th scope="col">2. Adiba Mahjabin Nitu(External)</th>
+              <th scope="col" style="color: black"><%= courseData.assignedTeacher %></th>
+
             </tr>
+            <% } %>
+          <% }) %> 
           <tr>
             <th scope="col">ID Number</th>
             <th scope="col">Attendance</th>
@@ -55,6 +64,8 @@
             <td><%= grade.GradePoint %></td>
           </tr>
           <% }) %>
+          
+          <input type="hidden" name="totalMarks" value="<%= totalMarks %>">
         </tbody>
       </table>
       <input type="submit" class="btn btn-outline-info" value="Submit">
