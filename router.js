@@ -12,6 +12,7 @@ router.get('/teacherLogout', teachersController.logOut)
 router.get('/courses/grading/:course_code', teachersController.gradingSystem)
 router.post('/courses/grading/:course_code', teachersController.gradeSubmitTemp)
 router.get('/courses/grading/edit/:course_code', teachersController.gradingSystemEdit)
+router.get('/courses/grading/finalSubmit/:course_code', teachersController.finalSubmit)
 
  
 // admin related routes

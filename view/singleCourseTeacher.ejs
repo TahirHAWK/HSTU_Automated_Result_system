@@ -20,17 +20,17 @@
             <% if(courseData.course_code == course_code){ %>
             <tr>
               <th scope="col">Course Title:</th>
-              <th scope="col" style="color: black"><%= courseData.course_title %></th>
+              <th scope="col" style="color: blueviolet"><%= courseData.course_title %></th>
               <th scope="col">Credit hours:</th>
-              <th scope="col" style="color: black"><%= courseData.credit %></th>
+              <th scope="col" style="color: blueviolet"><%= courseData.credit %></th>
               <th scope="col">Full Marks:</th>
-              <th scope="col" style="color: black">
+              <th scope="col" style="color: blueviolet">
                 <% (  courseData.credit == 3 ) ? ( totalMarks = 150 ) :( (courseData.credit == 2 ) ? ( totalMarks = 100 ) :  (totalMarks = 100 )) %>
                 <%= totalMarks %>
                 
                 </th>
               <th scope="col">Name of Examiner: </th>
-              <th scope="col" style="color: black"><%= courseData.assignedTeacher %></th>
+              <th scope="col" style="color: blueviolet"><%= courseData.assignedTeacher %></th>
 
             </tr>
             <% } %>
@@ -66,7 +66,17 @@
           
         </tbody>
       </table>
+
+
+      <% coursesData.forEach((courseData) => { %>
+
+      <% if(courseData.course_code == course_code && courseData.finalSubmission == false){ %>
       <a href="/courses/grading/edit/<%= course_code %>"><button type="button" class="btn btn-outline-info">Assign or Edit Grades</button></a> 
+      <% } else if(courseData.course_code == course_code) { %>
+        <hr><a href="/"><button type="button" class="btn btn-outline-info">Back to Home</button></a>
+      <% } %>    
+        
+      <% }) %>
       <%- include('./partials/footer.ejs') %>
   </div>
 </body>

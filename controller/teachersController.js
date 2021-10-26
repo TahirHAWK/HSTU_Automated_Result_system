@@ -1,4 +1,3 @@
-const gradeInfo = require('../db').db().collection('gradeInfo')
 const Teacher = require('../model/Teacher')
 
 exports.register = function(req, res){
@@ -116,7 +115,7 @@ exports.gradingSystemEdit = function(req, res){
 
     let teacher = new Teacher(req.session.user)
     teacher.fetchAssignedCourses().then(
-        (courses) =>{
+        (courses) =>{ 
             let fetchedCourses = courses;
             teacher = new Teacher(req.params)
             teacher.showCourseGrades().then(
@@ -160,6 +159,21 @@ exports.gradeSubmitTemp = function(req, res){
         }
     )
 
+}
+
+exports.finalSubmit = function(req, res){
+    console.log("final submit just pressed,", req.params)
+    let teacher = new Teacher(req.params)
+    teacher.finalSubmit().then(
+        (result) => {
+            console.log('final submit resolved', result)
+            res.redirect(`/courses/grading/${req.params.course_code}`)
+        }
+    ).catch(
+        (error) => {
+            console.log('cannot connect to db or change in finalSubmit.', error)
+        }
+    )
 }
 
 

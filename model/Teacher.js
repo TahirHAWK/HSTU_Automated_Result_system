@@ -296,18 +296,32 @@ Teacher.prototype.submitTeacherGrade = function(formDataObject){
             (s) => {
                 gradeInfo.insertMany(formDataObject).then(
                     (ss) => {
-
                         resolve()
-
                     }
                 )
-    
             }
         ) .catch((error) => {
             console.log('cannot deletemany')
             reject('error')
         })
         
+    })
+    return submitPromise
+}
+
+Teacher.prototype.finalSubmit = function(){
+    let submitPromise = new Promise((resolve, reject) => {
+        courseInfo.updateOne({course_code: this.data.course_code},{$set: {finalSubmission: true}}).then(
+            (result) => {
+                console.log(result)
+                resolve(result)
+            }
+        ).catch(
+            (error) => {
+                console.log('cannot update data for finalSubmit.')
+                reject(error)
+            }
+        )
     })
     return submitPromise
 }
