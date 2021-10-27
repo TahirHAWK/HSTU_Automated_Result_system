@@ -53,16 +53,74 @@ https://forms.gle/GyCrC9hyjUC8nX17A
 
 
 
-    let teacher = new Teacher(req.params)
-    teacher.showCourseGrades().then(
-        (grade) => {
-            res.render('singleCourseTeacherEdit', {course_code: req.params.course_code, grade: grade, from: 'teacherDashboard'})
+let x = [  {
+    _id: '6173af4e2b63652f4c6e09c6',
+    degree: 'CSE',
+    levelSemester: 'level 3 semester 1',
+    course_code: 'CSE 303',
+    course_title: 'Database',
+    credit: '3.00',
+    assignedTeacher: 'Md. Abu Marjan',
+    assignedTeacherID: '61740af52b63652f4c6e09e9',
+    finalSubmission: true,
+    assignedDepartment: 'CSE'
+  }, {}, {}, {'y': '3'}]
+
+
+let newArray = x.filter(value => Object.keys(value).length !== 0);
+console.log("after, ", x, newArray)
+
+
+Admin.prototype.cleanEmptyObjectArray =function(calculatedData){
+// remove empty objects
+    let cleanCalculatedData = calculatedData.filter(value => Object.keys(value).length !== 0);
+// remove duplicates
+    cleanCalculatedData = cleanCalculatedData.filter((v,i,a)=>a.findIndex(t=>(t.levelSemester === v.levelSemester && t.totalCredit === v.totalCredit))===i)
+    return cleanCalculatedData
+}
+
+Admin.prototype.findFinalSubmits = function(){
+    let findSubmitsPromise = new Promise((resolve, reject) => {
+        courseInfo.find({degree: this.data.registerDepartment,  finalSubmission: true}).toArray().then(
+            (result) => {
+                console.log(result)
+                // finding totalCredit and totalCourses done in one specific semester.
+            let resultObject = {}
+            let totalCredit = 0
+            let courseCount = 0
+            let calculatedData = []
+            for(i = 1; i <= 4; i ++){
+                for(j = 1; j <= 2; j++ ){
+                let levelSemester
+                result.forEach((course) => {
+                if(course.levelSemester == ('level '+  i +  ' semester '+  j )){
+                    levelSemester = 'level '+  i +  ' semester '+  j 
+                    totalCredit = (totalCredit + Number(course.credit))
+                    courseCount++
+                    resultObject = {totalCredit: totalCredit, courseCount: courseCount, levelSemester}
+                } else{
+                    totalCredit = 0
+                    courseCount = 0
+                }
+                    calculatedData.push(resultObject)
+                })
+            }
+            } 
+            // removing empty objects and duplicates from calculateData array
+
+           calculatedData= this.cleanEmptyObjectArray(calculatedData)
+
+            console.log('from findFinalSubmits', (calculatedData))
+            resolve()
         }
-    )
-    .catch(
-        (error) =>{
-            console.log(error)
-        }
-    )
+        ).catch((error) => {
+            console.log('cannot fetch from db', error)
+            reject(error)
+        })
+    })
+
+    return findSubmitsPromise
+}
+
 
 

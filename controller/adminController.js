@@ -1,4 +1,5 @@
 const Admin = require('../model/Admin')
+const Teacher = require('../model/Teacher')
 
  
 
@@ -128,6 +129,20 @@ exports.assignConfirm = function(req, res){
     )
 }
  
+
+exports.resultAllSemester = function(req, res) {
+    let admin = new Admin(req.session.admin)
+    admin.findFinalSubmits().then(
+        (result) => {
+            console.log('From resultAllSemester',result)
+            res.render('resultAllSemester', {registerName: req.session.admin.registerName, from: 'adminDashboard', result})
+        }
+    ).catch(
+        (error) => {
+            res.redirect('/adminHome')
+        }
+    )
+}
 
 
 

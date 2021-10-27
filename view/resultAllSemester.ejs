@@ -1,0 +1,48 @@
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+
+<body>
+    <%- include('./partials/navbar.ejs') %>
+
+  
+  <div class="main">
+
+
+    
+    <h2>Admin Dashboard</h2>
+    <h3>Welcome <%= registerName %> </h3>
+ 
+
+    <% for (i = 1; i <= 4; i ++){ %>
+        <% for(j = 1; j <= 2; j++ ){ %>
+      <!-- <label for="card_holder">Level <%= i %> Semester <%= j %></label> -->
+
+      <div class="card_holder">
+
+          <div class="card text-center" id="">
+          <div class="card-header"><%= 'Level '+  i +  ' Semester '+  j  %></div>
+          <div class="card-body">
+            <h5 class="card-title"> </h5>
+            <p class="card-text">
+               Total courses: 6 <br> Total credits: 19 <br>   <br> 
+            </p>
+            <a href="/admin/courses/" class="btn btn-outline-secondary">check result</a>
+          </div>    
+          <div class="card-footer p-3 mb-2 bg-success text-white">publish Status: published/due</div>
+        </div>
+        
+        </div>
+
+   
+        <% } %>
+          <% } %>
+    </div>
+
+    
+
+
+    
+  </div>
+  <%- include('./partials/footer.ejs') %>
+</body>
+</html>
