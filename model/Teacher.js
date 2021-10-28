@@ -267,11 +267,11 @@ Teacher.prototype.convertDataForDB = function(){
     
              attendance1 = {
                 ID_Number: formDataArray.ID_Number[i], 
-                Attendance: formDataArray.Attendance[i], 
-                ClassTest: formDataArray.ClassTest[i],
-                Mid: formDataArray.Mid[i],
-                FinalA: formDataArray.FinalA[i],
-                FinalB: formDataArray.FinalB[i],
+                Attendance: Number(formDataArray.Attendance[i]), 
+                ClassTest: Number(formDataArray.ClassTest[i]),
+                Mid: Number(formDataArray.Mid[i]),
+                FinalA: Number(formDataArray.FinalA[i]),
+                FinalB: Number(formDataArray.FinalB[i]),
                 Coursecode: formDataArray.Coursecode[i],
                 Total: total,
                 Marks: marks,

@@ -1,3 +1,4 @@
+const courseInfo = require('../db').db().collection('courseInfo')
 const Admin = require('../model/Admin')
 const Teacher = require('../model/Teacher')
 
@@ -144,5 +145,15 @@ exports.resultAllSemester = function(req, res) {
     )
 }
 
-
-
+exports.resultAllSemester = function(req, res){
+    let admin = new Admin(req.session.admin)
+    admin.searchResultInfo().then(
+        (result) => {
+            res.render('resultAllSemester', {registerName: req.session.admin.registerName, from: 'adminDashboard', resultInfo: result})
+        }
+    ).catch(
+        (error) => {
+            res.redirect('/adminHome')
+        }
+    )
+}

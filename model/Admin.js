@@ -204,56 +204,56 @@ Admin.prototype.assignConfirm = function(){
 }
 
 
-Admin.prototype.cleanEmptyObjectArray =function(calculatedData){
-// remove empty objects
-    let cleanCalculatedData = calculatedData.filter(value => Object.keys(value).length !== 0);
-// remove duplicates
-    cleanCalculatedData = cleanCalculatedData.filter((v,i,a)=>a.findIndex(t=>(t.levelSemester === v.levelSemester && t.totalCredit === v.totalCredit))===i)
-    return cleanCalculatedData
-}
-
-Admin.prototype.findFinalSubmits = function(){
-    let findSubmitsPromise = new Promise((resolve, reject) => {
-        courseInfo.find({degree: this.data.registerDepartment,  finalSubmission: true}).toArray().then(
-            (result) => {
-                console.log(result)
-                // finding totalCredit and totalCourses done in one specific semester.
-            let resultObject = {}
-            let totalCredit = 0
-            let courseCount = 0
-            let calculatedData = []
-            for(i = 1; i <= 4; i ++){
-                for(j = 1; j <= 2; j++ ){
-                let levelSemester
-                result.forEach((course) => {
-                if(course.levelSemester == ('level '+  i +  ' semester '+  j )){
-                    levelSemester = 'level '+  i +  ' semester '+  j 
-                    totalCredit = (totalCredit + Number(course.credit))
-                    courseCount++
-                    resultObject = {totalCredit: totalCredit, courseCount: courseCount, levelSemester}
-                } else{
-                    totalCredit = 0
-                    courseCount = 0
+Admin.prototype.searchResultInfo = function(){
+    let resultInfoPromise = new Promise((resolve, reject) => {
+        const agg = [
+            {
+              '$match': {
+                'degree': `${this.data.registerDepartment}`, 
+                'finalSubmission': true
+              }
+            }, {
+              '$group': {
+                '_id': '$levelSemester', 
+                'totalCredit': {
+                  '$sum': '$credit'
                 }
-                    calculatedData.push(resultObject)
+              }
+            }, {
+                '$sort': {
+                  '_id': 1
+                }
+              }
+          ];
+    
+          courseInfo.aggregate(agg).toArray().then(
+              (result) => {
+                let  convertedResult = []
+                result.forEach((result) => {
+                    let resultHeading = result._id
+                    // regex code that converts every word's first letter into capital.
+                   let  resultHeadingConverted = resultHeading.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+                    result = {
+                        _id: resultHeadingConverted,
+                        totalCredit: result.totalCredit
+                    }
+                    convertedResult.push(result)
                 })
-            }
-            } 
-            // removing empty objects and duplicates from calculateData array
-
-           calculatedData= this.cleanEmptyObjectArray(calculatedData)
-
-            console.log('from findFinalSubmits', (calculatedData))
-            resolve()
-        }
-        ).catch((error) => {
-            console.log('cannot fetch from db', error)
-            reject(error)
-        })
+    
+                console.log(convertedResult, 'result of my first aggregation')
+                resolve(convertedResult)
+              }
+          ).catch(
+              (error) => {
+                  reject(error)
+              }
+          )
     })
-
-    return findSubmitsPromise
+    return resultInfoPromise
+    
 }
+
+
 
 
 module.exports = Admin

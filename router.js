@@ -14,6 +14,7 @@ router.post('/courses/grading/:course_code', teachersController.gradeSubmitTemp)
 router.get('/courses/grading/edit/:course_code', teachersController.gradingSystemEdit)
 router.get('/courses/grading/finalSubmit/:course_code', teachersController.finalSubmit)
 
+
  
 // admin related routes
 router.get('/adminHome', adminController.home)
@@ -30,5 +31,12 @@ router.get('/studentHome', studentsController.home)
 router.post('/studentRegister', studentsController.register)
 router.post('/studentLogin', studentsController.login)
 router.get('/studentLogOut', studentsController.logOut)
+
+
+// sample data conversion route
+router.get('/convertCourseCreditNumber', teachersController.convertCourseCreditNumber)
+
+
+
 
 module.exports = router

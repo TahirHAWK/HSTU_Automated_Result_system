@@ -1,3 +1,4 @@
+const courseInfo = require('../db').db().collection('courseInfo')
 const Teacher = require('../model/Teacher')
 
 exports.register = function(req, res){
@@ -175,6 +176,41 @@ exports.finalSubmit = function(req, res){
         }
     )
 }
+
+exports.convertCourseCreditNumber = function(req, res) {
+    courseInfo.find({}).toArray().then(
+        (courses) => {
+            let courseCreditNumber = []
+            courses.forEach((course) => {
+                course = {
+                    _id: course._id,
+                    degree: course.degree,
+                    levelSemester: course.levelSemester,
+                    course_code: course.course_code,
+                    course_title: course.course_title,
+                    credit: Number(course.credit),
+                    assignedTeacher: course.assignedTeacher,
+                    assignedTeacherID: course.assignedTeacherID,
+                    finalSubmission: course.finalSubmission,
+                    assignedDepartment: course.assignedDepartment
+                }
+                courseCreditNumber.push(course)
+            })
+           courseInfo.deleteMany({}).then(
+               (result) => {
+                   courseInfo.insertMany(courseCreditNumber).then(
+                       (result) =>{
+                           console.log('replaced old course code strings with numbers.')
+                       }
+                   )
+               }
+           )
+            
+        }
+    )
+}
+
+
 
 
 
