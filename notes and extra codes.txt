@@ -71,56 +71,7 @@ let newArray = x.filter(value => Object.keys(value).length !== 0);
 console.log("after, ", x, newArray)
 
 
-Admin.prototype.cleanEmptyObjectArray =function(calculatedData){
-// remove empty objects
-    let cleanCalculatedData = calculatedData.filter(value => Object.keys(value).length !== 0);
-// remove duplicates
-    cleanCalculatedData = cleanCalculatedData.filter((v,i,a)=>a.findIndex(t=>(t.levelSemester === v.levelSemester && t.totalCredit === v.totalCredit))===i)
-    return cleanCalculatedData
-}
 
-Admin.prototype.findFinalSubmits = function(){
-    let findSubmitsPromise = new Promise((resolve, reject) => {
-        courseInfo.find({degree: this.data.registerDepartment,  finalSubmission: true}).toArray().then(
-            (result) => {
-                console.log(result)
-                // finding totalCredit and totalCourses done in one specific semester.
-            let resultObject = {}
-            let totalCredit = 0
-            let courseCount = 0
-            let calculatedData = []
-            for(i = 1; i <= 4; i ++){
-                for(j = 1; j <= 2; j++ ){
-                let levelSemester
-                result.forEach((course) => {
-                if(course.levelSemester == ('level '+  i +  ' semester '+  j )){
-                    levelSemester = 'level '+  i +  ' semester '+  j 
-                    totalCredit = (totalCredit + Number(course.credit))
-                    courseCount++
-                    resultObject = {totalCredit: totalCredit, courseCount: courseCount, levelSemester}
-                } else{
-                    totalCredit = 0
-                    courseCount = 0
-                }
-                    calculatedData.push(resultObject)
-                })
-            }
-            } 
-            // removing empty objects and duplicates from calculateData array
-
-           calculatedData= this.cleanEmptyObjectArray(calculatedData)
-
-            console.log('from findFinalSubmits', (calculatedData))
-            resolve()
-        }
-        ).catch((error) => {
-            console.log('cannot fetch from db', error)
-            reject(error)
-        })
-    })
-
-    return findSubmitsPromise
-}
 
 
 

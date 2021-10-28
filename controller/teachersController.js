@@ -182,10 +182,12 @@ exports.convertCourseCreditNumber = function(req, res) {
         (courses) => {
             let courseCreditNumber = []
             courses.forEach((course) => {
+                let capitalizeLevelSemester = course.levelSemester
+                 capitalizeLevelSemester = capitalizeLevelSemester.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()); 
                 course = {
                     _id: course._id,
                     degree: course.degree,
-                    levelSemester: course.levelSemester,
+                    levelSemester: capitalizeLevelSemester,
                     course_code: course.course_code,
                     course_title: course.course_title,
                     credit: Number(course.credit),
@@ -200,7 +202,7 @@ exports.convertCourseCreditNumber = function(req, res) {
                (result) => {
                    courseInfo.insertMany(courseCreditNumber).then(
                        (result) =>{
-                           console.log('replaced old course code strings with numbers.')
+                           console.log(result, 'replaced old course code strings with numbers.')
                        }
                    )
                }

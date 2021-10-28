@@ -228,20 +228,8 @@ Admin.prototype.searchResultInfo = function(){
     
           courseInfo.aggregate(agg).toArray().then(
               (result) => {
-                let  convertedResult = []
-                result.forEach((result) => {
-                    let resultHeading = result._id
-                    // regex code that converts every word's first letter into capital.
-                   let  resultHeadingConverted = resultHeading.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
-                    result = {
-                        _id: resultHeadingConverted,
-                        totalCredit: result.totalCredit
-                    }
-                    convertedResult.push(result)
-                })
-    
-                console.log(convertedResult, 'result of my first aggregation')
-                resolve(convertedResult)
+                console.log(result, 'result of my first aggregation')
+                resolve(result)
               }
           ).catch(
               (error) => {
