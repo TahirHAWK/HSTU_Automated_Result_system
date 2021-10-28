@@ -1,5 +1,6 @@
 const adminAuth = require('../db').db().collection('adminAuth')
 const teachersAuth = require('../db').db().collection('teachersAuth')
+const studentsAuth = require('../db').db().collection('studentsAuth')
 const courseInfo = require('../db').db().collection('courseInfo')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
@@ -204,6 +205,33 @@ Admin.prototype.assignConfirm = function(){
 }
 
 
+// Admin.prototype.countCourses = function(result, data){
+//     console.log(result, data)
+//     let countPromise = new Promise(async (resolve, reject) => {
+//         let modifiedResult = []
+//         for (i = 0; i < result.length; i++){
+//             await courseInfo.countDocuments({degree: data.registerDepartment, levelSemester: result._id, finalSubmission: true}).then(
+//                 (countResult)=>{
+//                     console.log(countResult, 'from countCourses')
+//                 let newResult = { 
+//                 _id: result[i]._id,
+//                 totalCredit: result[i].totalCredit,
+//                 totalCourse: countResult
+//                                 }
+//             modifiedResult.push(newResult)
+//                 }
+//             )
+
+//         }
+//         console.log(modifiedResult, 'from count courses')
+//         resolve(modifiedResult)
+
+
+        
+//     })
+//         return countPromise
+// }
+
 Admin.prototype.searchResultInfo = function(){
     let resultInfoPromise = new Promise((resolve, reject) => {
         const agg = [
@@ -228,7 +256,7 @@ Admin.prototype.searchResultInfo = function(){
     
           courseInfo.aggregate(agg).toArray().then(
               (result) => {
-                console.log(result, 'result of my first aggregation')
+                  console.log(result)
                 resolve(result)
               }
           ).catch(
@@ -239,6 +267,19 @@ Admin.prototype.searchResultInfo = function(){
     })
     return resultInfoPromise
     
+}
+
+Admin.prototype.getSingleResultData = function(){
+
+    let singleResultPromise = new Promise((resolve, reject) => {
+        courseInfo.find({degree: this.data.registerDepartment, levelSemester: this.data.levelSemester,finalSubmission: true}).sort({levelSemester: 1}).toArray().then(
+            (result) => {
+                console.log(result)
+                resolve(result) 
+            }
+        )
+    })
+  return singleResultPromise
 }
 
 

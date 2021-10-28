@@ -153,7 +153,20 @@ exports.resultAllSemester = function(req, res){
         }
     ).catch(
         (error) => {
+            console.log(error, 'here is the errors.')
             res.redirect('/adminHome')
         }
     )
+}
+
+exports.showSingleResult = function(req, res) {
+    req.session.admin.levelSemester = req.params.levelSemester
+    console.log(req.session.admin)
+    let admin = new Admin(req.session.admin)
+    admin.getSingleResultData().then(
+        (result) => {
+             res.render('showSingleResult', {semester: req.params.levelSemester, from: 'adminDashboard', courseInfo: result})
+        }
+    )
+   
 }
