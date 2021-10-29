@@ -30,10 +30,16 @@
           </tr>
           <% studentresult.forEach((student)=> { %>
             <tr>
-            <th scope="row"><%= student.ID_Number %></th>
+              <th scope="row"><%= student.ID_Number %></th>
+              <% courseCodeOnly.forEach((course) => { %>
+                <% if(course == student.Coursecode ){ %>
             <td title="<%= student.Coursecode %>"><%= student.GradePoint %></td>
-            <td><%= student.LetterGrade %></td>
-       
+            <td title="<%= course %>"><%= student.LetterGrade %></td>
+             <%} else {%>
+              <td title="<%= course %>"><%= course %></td>
+              <td title="<%= course %>"><%= course %></td>
+              <% } %>
+                <% }) %>
           </tr>
             <% }) %>
 
