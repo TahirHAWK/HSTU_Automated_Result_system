@@ -56,4 +56,8 @@ https://forms.gle/GyCrC9hyjUC8nX17A
 
 
 
-
+            <!-- <td title="<%= result.Coursecode %>"><%= result.GradePoint %></td> -->
+            <!-- <td title="<%= result.Coursecode %>"><%= result.LetterGrade %></td> -->
+       
+              <!-- <td title="<%= result.Coursecode %>">Absent</td> -->
+              <!-- <td title="<%= result.Coursecode %>"></td> -->

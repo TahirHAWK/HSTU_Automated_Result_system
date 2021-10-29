@@ -1,6 +1,6 @@
-const courseInfo = require('../db').db().collection('courseInfo')
+const _ = require('lodash');
 const Admin = require('../model/Admin')
-const Teacher = require('../model/Teacher')
+
 
  
 
@@ -164,17 +164,20 @@ exports.showSingleResult = function(req, res) {
     let admin = new Admin(req.session.admin)
     admin.getSingleResultData().then(
         (courseData) => {
-            let courseDataquery = courseData
-            let modifiedResult = []
-            courseData.forEach((result) => {
-                result = result.course_code
-                modifiedResult.push(result)
-            })
-            admin.showStudentMarks(modifiedResult).then((studentresult) => {
-                console.log(courseData, modifiedResult, 'from all query')
-                console.log(studentresult, 'student result')
-                 res.render('showSingleResult', {semester: req.params.levelSemester, from: 'adminDashboard', courseInfo: courseDataquery, studentresult: studentresult, courseCodeOnly: modifiedResult})
-            })
+        let courseDataquery = courseData
+        // extracted only course codes
+        let courseCodesOnly = _.map(courseData, 'course_code')
+        admin.showStudentMarks(courseCodesOnly).then((studentresult) => {
+        admin.extractIdFromGrades(studentresult).then(
+            (onlyStudentId) => {
+
+                console.log(courseDataquery, 'courseDataquery: info about course, credits, title etc')
+                console.log(courseCodesOnly, 'course code only: only contain course codes')
+                console.log(studentresult, 'student result: contains grades with course course and IDs')
+                    res.render('showSingleResult', {semester: req.params.levelSemester, from: 'adminDashboard', courseInfo: courseDataquery, studentresult: studentresult, courseCodeOnly: courseCodesOnly, studentIDs: onlyStudentId})
+            }
+        )
+        })
         }
     ) 
    
