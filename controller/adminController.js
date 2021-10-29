@@ -161,12 +161,21 @@ exports.resultAllSemester = function(req, res){
 
 exports.showSingleResult = function(req, res) {
     req.session.admin.levelSemester = req.params.levelSemester
-    console.log(req.session.admin)
     let admin = new Admin(req.session.admin)
     admin.getSingleResultData().then(
-        (result) => {
-             res.render('showSingleResult', {semester: req.params.levelSemester, from: 'adminDashboard', courseInfo: result})
+        (courseData) => {
+            let courseDataquery = courseData
+            let modifiedResult = []
+            courseData.forEach((result) => {
+                result = result.course_code
+                modifiedResult.push(result)
+            })
+            admin.showStudentMarks(modifiedResult).then((studentresult) => {
+                console.log(courseData, modifiedResult, 'from all query')
+                console.log(studentresult, 'student result')
+                 res.render('showSingleResult', {semester: req.params.levelSemester, from: 'adminDashboard', courseInfo: courseDataquery, studentresult: studentresult, courseCodeOnly: modifiedResult})
+            })
         }
-    )
+    ) 
    
 }

@@ -1,6 +1,7 @@
 const adminAuth = require('../db').db().collection('adminAuth')
 const teachersAuth = require('../db').db().collection('teachersAuth')
 const studentsAuth = require('../db').db().collection('studentsAuth')
+const gradeInfo = require('../db').db().collection('gradeInfo')
 const courseInfo = require('../db').db().collection('courseInfo')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
@@ -270,16 +271,39 @@ Admin.prototype.searchResultInfo = function(){
 }
 
 Admin.prototype.getSingleResultData = function(){
-
+    let projection = {degree: 0, assignedTeacher: 0, assignedTeacherID:0, finalSubmission: 0, assignedDepartment: 0}
     let singleResultPromise = new Promise((resolve, reject) => {
-        courseInfo.find({degree: this.data.registerDepartment, levelSemester: this.data.levelSemester,finalSubmission: true}).sort({levelSemester: 1}).toArray().then(
+        courseInfo.find({
+            degree: this.data.registerDepartment, 
+            levelSemester: this.data.levelSemester,
+            finalSubmission: true
+        }, {projection: projection}).sort({course_code: 1}).toArray().then(
             (result) => {
-                console.log(result)
+
                 resolve(result) 
             }
         )
     })
   return singleResultPromise
+}
+
+
+Admin.prototype.showStudentMarks = function(courses){
+    let projection = {_id: 0, Attendance: 0, ClassTest: 0, Mid: 0, FinalA:0, FinalB: 0, Total: 0, Marks: 0}
+    let showStudentMarksPromise = new Promise((resolve, reject) => {
+        gradeInfo.find({Coursecode: {$in: courses}}, {projection: projection}).sort({Coursecode: 1}).toArray().then(
+            (result) => {
+                resolve(result)
+            }
+        ).catch(
+            (error) => {
+                console.log(error, 'oops error happened')
+                reject(error)
+            }
+        )
+    })
+
+    return showStudentMarksPromise
 }
 
 

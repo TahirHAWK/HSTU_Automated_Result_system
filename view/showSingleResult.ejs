@@ -22,22 +22,21 @@
         </thead>
         <tbody>
           <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
+            <th scope="row"></th>
+            <% for(i=0; i< courseInfo.length; i++){ %>
+              <td  style="color: navy; font-weight: bold">GPA</td>
+              <td  style="color: navy; font-weight: bold">Grade</td>
+            <% } %>
           </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
+          <% studentresult.forEach((student)=> { %>
+            <tr>
+            <th scope="row"><%= student.ID_Number %></th>
+            <td title="<%= student.Coursecode %>"><%= student.GradePoint %></td>
+            <td><%= student.LetterGrade %></td>
+       
           </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-          </tr>
+            <% }) %>
+
         </tbody>
       </table>
 

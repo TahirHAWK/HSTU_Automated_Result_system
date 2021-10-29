@@ -49,27 +49,9 @@ https://forms.gle/H5oPhL9L6a564BmJ7
 ar eta department er chairman, course, teachers der data collection er jnno, 
 https://forms.gle/GyCrC9hyjUC8nX17A
 
+{_id: 0, Attendance: 0, ClassTest: 0, Mid: 0, FinalA:0, FinalB: 0, Total: 0, Marks: 0}
 
-
-
-
-let x = [  {
-    _id: '6173af4e2b63652f4c6e09c6',
-    degree: 'CSE',
-    levelSemester: 'level 3 semester 1',
-    course_code: 'CSE 303',
-    course_title: 'Database',
-    credit: '3.00',
-    assignedTeacher: 'Md. Abu Marjan',
-    assignedTeacherID: '61740af52b63652f4c6e09e9',
-    finalSubmission: true,
-    assignedDepartment: 'CSE'
-  }, {}, {}, {'y': '3'}]
-
-
-let newArray = x.filter(value => Object.keys(value).length !== 0);
-console.log("after, ", x, newArray)
-
+{Coursecode:"CSE 252"}
 
 
 
