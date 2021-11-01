@@ -192,7 +192,7 @@ Teacher.prototype.showCourseGrades = function(){
     return showGradePromise
 }
 
-Teacher.prototype.convertDataForDB = function(){
+Teacher.prototype.convertDataForDB = function(credit){
 
     let convertPromise = new Promise((resolve, reject) => {
         let totalMarks = this.data.totalMarks
@@ -277,7 +277,8 @@ Teacher.prototype.convertDataForDB = function(){
                 Marks: marks,
                 LetterGrade: letterGrade,
                 GradePoint: gradePoint,
-                Coursecode: course_code
+                Coursecode: course_code,
+                credit: Number(credit)
                 }
             formDataObject.push(attendance1)
         }

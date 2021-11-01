@@ -71,7 +71,7 @@
       <% coursesData.forEach((courseData) => { %>
 
       <% if(courseData.course_code == course_code && courseData.finalSubmission == false){ %>
-      <a href="/courses/grading/edit/<%= course_code %>"><button type="button" class="btn btn-outline-info">Assign or Edit Grades</button></a> 
+      <a href="/courses/grading/edit/<%= course_code %>/<%= courseData.credit %>"><button type="button" class="btn btn-outline-info">Assign or Edit Grades</button></a> 
       <% } else if(courseData.course_code == course_code) { %>
         <hr><a href="/"><button type="button" class="btn btn-outline-info">Back to Home</button></a>
       <% } %>    

@@ -3,15 +3,16 @@ const router = express.Router()
 const teachersController = require('./controller/teachersController')
 const adminController = require('./controller/adminController')
 const studentsController = require('./controller/studentsController')
+const testController = require('./controller/testController')
 
 // teacher related routes
 router.get('/', teachersController.home)
 router.post('/teacherRegister', teachersController.register)
 router.post('/teacherLogin', teachersController.login)
 router.get('/teacherLogout', teachersController.logOut)
-router.get('/courses/grading/:course_code', teachersController.gradingSystem)
-router.post('/courses/grading/:course_code', teachersController.gradeSubmitTemp)
-router.get('/courses/grading/edit/:course_code', teachersController.gradingSystemEdit)
+router.get('/courses/grading/:course_code/:credit', teachersController.gradingSystem)
+router.post('/courses/grading/:course_code/:credit', teachersController.gradeSubmitTemp)
+router.get('/courses/grading/edit/:course_code/:credit', teachersController.gradingSystemEdit)
 router.get('/courses/grading/finalSubmit/:course_code', teachersController.finalSubmit)
 
 
@@ -36,6 +37,8 @@ router.get('/studentLogOut', studentsController.logOut)
 
 // sample data conversion route
 router.get('/convertCourseCreditNumber', teachersController.convertCourseCreditNumber)
+router.get('/test/arrays', testController.arrays)
+
 
 
 

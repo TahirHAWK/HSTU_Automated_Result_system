@@ -167,6 +167,8 @@ exports.showSingleResult = function(req, res) {
         let courseDataquery = courseData
         // extracted only course codes
         let courseCodesOnly = _.map(courseData, 'course_code')
+        let courseCreditOnly = _.map(courseData, 'credit')
+        console.log(courseCreditOnly, "credits")
         admin.showStudentMarks(courseCodesOnly).then((studentresult) => {
         admin.extractIdFromGrades(studentresult).then(
             (onlyStudentId) => {
@@ -174,6 +176,7 @@ exports.showSingleResult = function(req, res) {
                 console.log(courseDataquery, 'courseDataquery: info about course, credits, title etc')
                 console.log(courseCodesOnly, 'course code only: only contain course codes')
                 console.log(studentresult, 'student result: contains grades with course course and IDs')
+                console.log(onlyStudentId, 'only student ids')
                     res.render('showSingleResult', {semester: req.params.levelSemester, from: 'adminDashboard', courseInfo: courseDataquery, studentresult: studentresult, courseCodeOnly: courseCodesOnly, studentIDs: onlyStudentId})
             }
         )

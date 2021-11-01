@@ -137,16 +137,16 @@ exports.gradingSystemEdit = function(req, res){
 
 
 }
-// ['1','2','3']
+
 
 exports.gradeSubmitTemp = function(req, res){
     let teacher = new Teacher(req.body)
-    teacher.convertDataForDB().then(
+    teacher.convertDataForDB(req.params.credit).then(
         (result) => {
             teacher.submitTeacherGrade(result).then(
                 (result) => {
                     console.log( req.body,'<-- from gradeSubmitTemp ' )
-                    res.redirect(`/courses/grading/edit/${req.params.course_code}`)
+                    res.redirect(`/courses/grading/edit/${req.params.course_code}/${req.params.credit}`)
                 }
             ).catch(
                 (error) => {
