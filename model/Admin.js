@@ -156,6 +156,7 @@ Admin.prototype.showAllCourses = function(){
         this.validate()
         console.log('from show all courses model: ', this.data)
         courseInfo.find({assignedDepartment: this.data.registerDepartment}).sort({course_code: 1}).toArray().then((result) => {
+            
             resolve(result)
         })
         .catch(
@@ -217,7 +218,7 @@ Admin.prototype.searchResultInfo = function(){
               }
             }, {
               '$group': {
-                '_id': '$levelSemester', 
+                '_id': '$Levelsemester', 
                 'totalCredit': {
                   '$sum': '$credit'
                 }
@@ -249,7 +250,7 @@ Admin.prototype.getSingleResultData = function(){
     let singleResultPromise = new Promise((resolve, reject) => {
         courseInfo.find({
             degree: this.data.registerDepartment, 
-            levelSemester: this.data.levelSemester,
+            Levelsemester: this.data.Levelsemester,
             finalSubmission: true
         }, {projection: projection}).sort({course_code: 1}).toArray().then(
             (result) => {
@@ -292,6 +293,8 @@ Admin.prototype.extractIdFromGrades = function(studentGrades){
     })
     return idPromise
 }
+
+
 
 
 

@@ -13,7 +13,7 @@ router.get('/teacherLogout', teachersController.logOut)
 router.get('/courses/grading/:course_code/:credit', teachersController.gradingSystem)
 router.post('/courses/grading/:course_code/:credit', teachersController.gradeSubmitTemp)
 router.get('/courses/grading/edit/:course_code/:credit', teachersController.gradingSystemEdit)
-router.get('/courses/grading/finalSubmit/:course_code', teachersController.finalSubmit)
+router.get('/courses/grading/finalSubmit/:course_code/:credit', teachersController.finalSubmit)
 
 
  
@@ -25,7 +25,7 @@ router.get('/adminLogOut', adminController.logOut)
 router.get('/admin/courses/:id', adminController.isVisitorOwner,  adminController.assignTeacher)
 router.get('/admin/courses/:id/:assignedTeacher/:assignedTeacherID', adminController.isVisitorOwner, adminController.assignConfirm)
 router.get('/admin/result', adminController.resultAllSemester)
-router.get('/admin/result/:levelSemester', adminController.showSingleResult)
+router.get('/admin/result/:Levelsemester', adminController.showSingleResult)
 
 
 // student related routes

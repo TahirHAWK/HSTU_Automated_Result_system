@@ -168,7 +168,7 @@ exports.finalSubmit = function(req, res){
     teacher.finalSubmit().then(
         (result) => {
             console.log('final submit resolved', result)
-            res.redirect(`/courses/grading/${req.params.course_code}`)
+            res.redirect(`/courses/grading/${req.params.course_code}/${req.params.credit}`)
         }
     ).catch(
         (error) => {
@@ -182,12 +182,12 @@ exports.convertCourseCreditNumber = function(req, res) {
         (courses) => {
             let courseCreditNumber = []
             courses.forEach((course) => {
-                let capitalizeLevelSemester = course.levelSemester
+                let capitalizeLevelSemester = course.Levelsemester
                  capitalizeLevelSemester = capitalizeLevelSemester.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()); 
                 course = {
                     _id: course._id,
                     degree: course.degree,
-                    levelSemester: capitalizeLevelSemester,
+                    Levelsemester: capitalizeLevelSemester,
                     course_code: course.course_code,
                     course_title: course.course_title,
                     credit: Number(course.credit),

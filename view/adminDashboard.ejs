@@ -18,7 +18,7 @@
     <label for="card_holder" class="cardHold"><%= 'Level '+  i +  ' Semester '+  j  %></label>
     <div class="card_holder">
         <% courseData.forEach((course) => { %>
-          <% if(course.levelSemester == ('Level '+  i +  ' Semester '+  j)) {%>
+          <% if(course.Levelsemester == ('Level '+  i +  ' Semester '+  j)) {%>
         <div class="card text-center" id="<%= course.course_code %>">
         <div class="card-header"><%= course.course_title %></div>
         <div class="card-body">

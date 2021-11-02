@@ -79,6 +79,7 @@ exports.home = function(req, res){
     if(req.session.admin && req.session.admin.loginAs == 'admin'){
         admin.showAllCourses() 
         .then((result) =>{
+            console.log(req.session.admin)
             res.render('adminDashboard', {registerName: req.session.admin.registerName, courseData: result, from: 'adminDashboard'})
         })         
             .catch((error) => 
@@ -133,13 +134,14 @@ exports.assignConfirm = function(req, res){
 
 exports.resultAllSemester = function(req, res) {
     let admin = new Admin(req.session.admin)
-    admin.findFinalSubmits().then(
+    admin.searchResultInfo().then(
         (result) => {
             console.log('From resultAllSemester',result)
             res.render('resultAllSemester', {registerName: req.session.admin.registerName, from: 'adminDashboard', result})
         }
     ).catch(
         (error) => {
+            console.log(error, 'from result all semester controller.')
             res.redirect('/adminHome')
         }
     )
@@ -160,7 +162,7 @@ exports.resultAllSemester = function(req, res){
 }
 
 exports.showSingleResult = function(req, res) {
-    req.session.admin.levelSemester = req.params.levelSemester
+    req.session.admin.Levelsemester = req.params.Levelsemester
     let admin = new Admin(req.session.admin)
     admin.getSingleResultData().then(
         (courseData) => {
@@ -177,7 +179,7 @@ exports.showSingleResult = function(req, res) {
                 console.log(courseCodesOnly, 'course code only: only contain course codes')
                 console.log(studentresult, 'student result: contains grades with course course and IDs')
                 console.log(onlyStudentId, 'only student ids')
-                    res.render('showSingleResult', {semester: req.params.levelSemester, from: 'adminDashboard', courseInfo: courseDataquery, studentresult: studentresult, courseCodeOnly: courseCodesOnly, studentIDs: onlyStudentId})
+                    res.render('showSingleResult', {semester: req.params.Levelsemester, from: 'adminDashboard', courseInfo: courseDataquery, studentresult: studentresult, courseCodeOnly: courseCodesOnly, studentIDs: onlyStudentId})
             }
         )
         })
