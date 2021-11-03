@@ -24,6 +24,7 @@ router.post('/adminLogin', adminController.login)
 router.get('/adminLogOut', adminController.logOut)
 router.get('/admin/courses/:id', adminController.isVisitorOwner,  adminController.assignTeacher)
 router.get('/admin/courses/:id/:assignedTeacher/:assignedTeacherID', adminController.isVisitorOwner, adminController.assignConfirm)
+router.get('/admin/courses/:course_code/unsubmit', adminController.unsubmit)
 router.get('/admin/result', adminController.resultAllSemester)
 router.get('/admin/result/:Levelsemester', adminController.showSingleResult)
 

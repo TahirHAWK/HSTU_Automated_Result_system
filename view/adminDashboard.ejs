@@ -24,7 +24,7 @@
         <div class="card-body">
           <h5 class="card-title">Course code: <%= course.course_code %></h5>
           <p class="card-text">
-            Degree: <%= course.degree %> <br> <%= course.levelSemester %> <br> credits: <%= course.credit %> <br> 
+            Degree: <%= course.degree %> <br> <%= course.levelSemester %> <br> Credits: <%= course.credit %> <br> 
           </p>
           <% if(course.assignedTeacher){ %> 
            <a href="/admin/courses/<%=  course.course_code %>" class="btn btn-outline-success">Ressign Teacher</a>
@@ -34,6 +34,9 @@
         </div>    
         <% if(course.assignedTeacher){ %>
         <div class="card-footer p-3 mb-2 bg-success text-white">Assigned Teacher: <%= course.assignedTeacher %></div>
+        <% if(course.finalSubmission == true){ %>
+          <a href="/admin/courses/<%=  course.course_code %>/unsubmit" class="btn btn-outline-danger">Unsubmit Grades for re-evaluation</a>
+          <% } %>
       </div>
        <% } else { %>
         <div class="card-footer text-muted">Assigned Teacher: none</div>

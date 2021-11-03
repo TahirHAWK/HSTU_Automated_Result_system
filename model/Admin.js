@@ -294,7 +294,18 @@ Admin.prototype.extractIdFromGrades = function(studentGrades){
     return idPromise
 }
 
-
+Admin.prototype.changeSubmitStatus = function(course_code){
+    let changeStatusPromise = new Promise((resolve, reject) => {
+        courseInfo.findOneAndUpdate({course_code: course_code}, {$set: {finalSubmission: false}}).then((result) => {
+            
+            resolve(result)
+        }).catch((error) => {
+            
+            reject(error)
+        })
+    })
+    return changeStatusPromise
+}
 
 
 

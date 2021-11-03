@@ -187,3 +187,14 @@ exports.showSingleResult = function(req, res) {
     ) 
    
 }
+
+exports.unsubmit = function(req, res){
+    let course_code = req.params.course_code
+    let admin = new Admin()
+    admin.changeSubmitStatus(course_code).then((result) => {
+        console.log(result)
+        res.redirect('/adminHome')
+    }).catch((error)=> {
+        console.log(error, '--> cannot update for being error.')
+    })
+}

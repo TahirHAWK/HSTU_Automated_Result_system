@@ -18,11 +18,11 @@
       <% AssignedCourses.forEach((course) => { %>
         
         <div class="card text-center" id="<%= course.assignedTeacherID %>">
-        <div class="card-header"><%= course.course_code %></div>
+        <div class="card-header"><%= course.course_title %></div>
         <div class="card-body">
-          <h5 class="card-title"><%= course.course_title %></h5>
+          <h5 class="card-title">Credits: <%= course.credit %></h5>
           <p class="card-text">
-            Degree: <%= course.degree %> <br> <%= course.levelSemester %> <br> credits: <%= course.credit %> <br> 
+            Degree: <%= course.degree %> <br> <%= course.levelSemester %> <br> Course Code: <%= course.course_code %> <br> 
           </p>
            
      
