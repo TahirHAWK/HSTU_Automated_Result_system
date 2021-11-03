@@ -1,0 +1,39 @@
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+
+<body>
+    <%- include('./partials/navbar.ejs') %>
+
+  
+  <div class="main">
+
+    <h2>Students Dashboard of <%= studentDetail.registerID %></h2>
+    <h3>Result of <%= Levelsemester %></h3>
+    <table class="table table-sm table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Course Code</th>
+            <th scope="col">Marks(%)</th>
+            <th scope="col">LetterGrade</th>
+            <th scope="col">GradePoint(GPA)</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% studentMarks.forEach((marks) => { %>
+          <tr>
+            <th scope="row"><%= marks.Coursecode %></th>
+            <td><%= marks.Marks %></td>
+            <td><%= marks.LetterGrade %></td>
+            <td><%= marks.GradePoint %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    
+    
+
+    
+  </div>
+  <%- include('./partials/footer.ejs') %>
+</body>
+</html>

@@ -9,6 +9,23 @@
 
     <h2>Students Dashboard</h2>
     <h3>Welcome, <%= registerName %></h3>
+    <% for (i = 1; i <= 4; i ++){ %>
+      <% for(j = 1; j <= 2; j++ ){ %>
+    
+    <!-- <label for="card_holder" class="cardHold"></label> -->
+    <div class="card_holder">
+      <div class="card">
+        <div class="card-header">
+          <%= 'Level '+  i +  ' Semester '+  j  %>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Result</h5>
+          <p class="card-text">Click here to check your result of the following semester.</p>
+          <a href="/student/result/<%= 'Level '+  i +  ' Semester '+  j  %>" class="btn btn-primary">Check Result</a>
+        </div>
+      </div>
+    </div>
+    <% }} %>
     
 
     

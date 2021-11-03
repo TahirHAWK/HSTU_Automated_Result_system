@@ -14,7 +14,7 @@
 
     <% for (i = 1; i <= 4; i ++){ %>
       <% for(j = 1; j <= 2; j++ ){ %>
-    <!-- <label for="card_holder">Level <%= i %> Semester <%= j %></label> -->
+    
     <label for="card_holder" class="cardHold"><%= 'Level '+  i +  ' Semester '+  j  %></label>
     <div class="card_holder">
         <% courseData.forEach((course) => { %>

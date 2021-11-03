@@ -15,7 +15,7 @@ exports.register = function(req, res){
         
             console.log('from register controller if rejects', errors)
     
-            req.session.student = {favColor: 'blue', registerName: student.data.registerName, registerEmail: student.data.registerEmail,registerID: student.data.registerID, loginAs: 'student'}
+            req.session.student = {favColor: 'blue', registerName: student.data.registerName, registerEmail: student.data.registerEmail,registerID: student.data.registerID, loginAs: 'student', registerDepartment: student.data.registerDepartment}
             req.session.save(function(){
                 res.redirect('/studentHome')
             })
@@ -31,7 +31,7 @@ exports.login = function(req, res){
     .then(function(result){
         // setting up sessions
         console.log('result after executing student.login() function:',result)
-        req.session.student = {favColor: 'blue', registerEmail: result.registerEmail, registerName: result.registerName, registerID: result.registerID, loginAs: 'student'}
+        req.session.student = {favColor: 'blue', registerEmail: result.registerEmail, registerName: result.registerName, registerID: result.registerID, loginAs: 'student', registerDepartment: result.registerDepartment}
         console.log(req.session.student)
         // even though in the upper line, while updating the session object, its also sends the data to mongodb and then redirects, as accessing db is async process we need to manually save the data to db so that we can set its next process of redirect as it is done.
         req.session.save(function(){
@@ -66,4 +66,13 @@ exports.home = function(req, res){
         res.render('studentGuest', {errors: req.flash('errors'), from: 'studentGuest'})
         // we could've wrote req.session.user.flash.errors to access the flash data but we want to access it and delete it as soon as we access it, that's why the flash method is used in the errors: req.flash('errors') instead of accessing the session.
     }
+}
+
+exports.showSingleResult = function(req, res){
+    let student = new Student(req.params.Levelsemester)
+    student.findResultOfStudent(req.session.student).then((result) => {
+
+        res.render('studentSingleResult', {Levelsemester: req.params.Levelsemester, from: 'studentDashboard', studentMarks: result, studentDetail: req.session.student})
+    })
+
 }

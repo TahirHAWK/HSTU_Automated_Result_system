@@ -118,7 +118,7 @@ exports.assignConfirm = function(req, res){
     admin.assignConfirm().then(
         (result) => {
             
-            console.log('on assignconfirm controller, on resolve: ', req.params)  
+            console.log('on assignconfirm controller, on resolve: ', req.params, result)  
             res.redirect(`/adminHome#${req.params.id}`)
         }
         ).catch(

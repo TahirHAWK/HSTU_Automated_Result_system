@@ -1,5 +1,8 @@
 const studentsAuth = require('../db').db().collection('studentsAuth')
+const gradeInfo = require('../db').db().collection('gradeInfo')
+const courseInfo = require('../db').db().collection('courseInfo')
 const validator = require('validator')
+const _ = require('lodash');
 const bcrypt = require('bcryptjs')
 
 let Student = function(data){
@@ -147,6 +150,24 @@ Student.prototype.login = function(){
     })
     return loginPromise
 }
+
+Student.prototype.findResultOfStudent = function(studentData){
+    let findResultIDPromise = new Promise((resolve, reject) => {
+        let semesterNumber = this.data
+        courseInfo.find({degree: studentData.registerDepartment, Levelsemester: semesterNumber, finalSubmission: true}).toArray().then((coursesSubmitted) => {
+            let onlycourse = _.map(coursesSubmitted, 'course_code')
+            gradeInfo.find({Coursecode: {$in: onlycourse}, ID_Number: studentData.registerID}).toArray().then((grade) => {
+                resolve(grade)
+            })
+        }).catch((error) => {
+            console.log(error ,'an error occured')
+            reject(error)
+        })
+
+    })
+    return findResultIDPromise
+}
+
 
 
 module.exports = Student

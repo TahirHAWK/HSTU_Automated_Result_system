@@ -34,7 +34,7 @@ router.get('/studentHome', studentsController.home)
 router.post('/studentRegister', studentsController.register)
 router.post('/studentLogin', studentsController.login)
 router.get('/studentLogOut', studentsController.logOut)
-
+router.get('/student/result/:Levelsemester', studentsController.showSingleResult)
 
 // sample data conversion route
 router.get('/convertCourseCreditNumber', teachersController.convertCourseCreditNumber)
