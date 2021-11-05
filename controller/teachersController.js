@@ -280,13 +280,13 @@ console.log(allMarks, '--> for test')
             {
                 columns: [
                     {
-                        text: 'Singnature of the Member of the Examination Committee \n Date: ___________________________'
+                        text: 'Signature of the Member of the Examination Committee \n Date: ___________________________'
                     },
                     {
-                        text: 'Singnature of the Scrutinizer \n Date: ___________________________'
+                        text: 'Signature of the Scrutinizer \n Date: ___________________________'
                     },
                     {
-                        text: 'Singnature of the Chairman of Department \n Date: ___________________________'
+                        text: 'Signature of the Chairman of Department \n Date: ___________________________'
                     }
                 ]
             }
