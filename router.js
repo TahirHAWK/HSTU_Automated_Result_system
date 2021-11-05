@@ -12,6 +12,7 @@ router.post('/teacherLogin', teachersController.login)
 router.get('/teacherLogout', teachersController.logOut)
 router.get('/courses/grading/:course_code/:credit', teachersController.gradingSystem)
 router.post('/courses/grading/:course_code/:credit', teachersController.gradeSubmitTemp)
+router.post('/marksPDF', teachersController.printAsPdf)
 router.get('/courses/grading/edit/:course_code/:credit', teachersController.gradingSystemEdit)
 router.get('/courses/grading/finalSubmit/:course_code/:credit', teachersController.finalSubmit)
 

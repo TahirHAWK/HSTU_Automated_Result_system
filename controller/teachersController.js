@@ -1,5 +1,10 @@
 const courseInfo = require('../db').db().collection('courseInfo')
+const pdfMake = require('pdfmake/build/pdfmake');
+const pdfFonts = require('pdfmake/build/vfs_fonts');
+var fs = require('fs');
 const Teacher = require('../model/Teacher')
+
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 exports.register = function(req, res){
     let teacher = new Teacher(req.body)
@@ -214,5 +219,100 @@ exports.convertCourseCreditNumber = function(req, res) {
 
 
 
+exports.printAsPdf = function(req, res, next){ 
+    console.log(req.body, '--> from printAsPdf')
+    let teacherName = req.body.teacherName;
+    let courseTitle = req.body.courseTitle;
+    let course_code = req.body.course_code;
+    let creditHour = req.body.creditHour;
+    let fullMarks = req.body.fullMarks;
+    // array starts from here
+    let ID_Number = req.body.ID_Number;
+    let Attendance = req.body.Attendance;
+    let ClassTest = req.body.ClassTest;
+    let Mid = req.body.Mid;
+    let FinalA = req.body.FinalA;
+    let FinalB = req.body.FinalB;
+    let Total = req.body.Total;
+    let Marks = req.body.Marks;
+    let LetterGrade = req.body.LetterGrade;
+    let GradePoint = req.body.GradePoint;
+    let allMarks =[[ { text: 'Student ID', style: 'header' }, { text: 'Attendance', style: 'header' }, { text: 'Class Test', style: 'header' }, { text: 'Mid', style: 'header' },{ text: 'Final (Section A)', style: 'header' }, { text: 'Final (Section B)', style: 'header' }, { text: 'Total', style: 'header' }, { text: 'Marks(%)', style: 'header' },{ text: 'Letter Grade', style: 'header' }, { text: 'Grade Point ' , style: 'header' }]]
 
+
+    let allDetails = [ { text: 'Teacher Name: ', style: 'header' }, teacherName, { text: 'Course Title: ', style: 'header' }, courseTitle, { text:  'Course Code: ', style: 'header' }, course_code, { text:  'Credits: ', style: 'header' },  creditHour, { text:  'Total: ', style: 'header' }, fullMarks]
+
+
+    for(i=0; i< ID_Number.length; i++){
+        let markSingle = [ ID_Number[i], Attendance[i], ClassTest[i], Mid[i], FinalA[i], FinalB[i], Total[i], Marks[i], LetterGrade[i], GradePoint[i]]
+        allMarks.push(markSingle)
+    }
+
+    // ID_Number, Attendance, ClassTest, Mid, FinalA, FinalB, Total, Marks, LetterGrade, GradePoint
+    // `Course Title: ${courseTitle}`, `Assigned Teacher: ${teacherName}`, `Credit: ${creditHour}`,
+console.log(allMarks, '--> for test')
+
+    var documentDefinition = {
+        pageOrientation: 'landscape',
+        pageMargins: [ 40, 60, 40, 60 ],
+        content: [
+            {text: 'Hajee Mohammad Danesh Science and Technology University (HSTU), Dinajpur - 5200',
+            alignment: 'center', fontSize: 20},
+            '\n\n', '\n\n',
+            'Course Details: ',
+            '\n\n',
+            {
+                table: {
+
+          
+                  body: [allDetails]
+                  
+                 }
+              },  
+              '\n\n', 'Grade Details: ',
+              '\n\n',
+            {
+                table: {
+                    body: allMarks
+                }
+            }, 
+            '\n\n','\n\n', '\n\n',
+            {
+                columns: [
+                    {
+                        text: 'Singnature of the Member of the Examination Committee \n Date: ___________________________'
+                    },
+                    {
+                        text: 'Singnature of the Scrutinizer \n Date: ___________________________'
+                    },
+                    {
+                        text: 'Singnature of the Chairman of Department \n Date: ___________________________'
+                    }
+                ]
+            }
+            
+        ], 
+        styles: {
+            header: {
+                bold: true,
+                color: 'blue',
+                margin: [ 5, 2, 10, 20 ]
+            }
+
+        }
+      };
+
+    const pdfDoc = pdfMake.createPdf(documentDefinition);
+    pdfDoc.getBase64((data)=>{
+        res.writeHead(200, 
+        {
+            'Content-Type': 'application/pdf',
+            'Content-Disposition':'attachment;filename="filename.pdf"'
+        });
+
+        const download = Buffer.from(data.toString('utf-8'), 'base64');
+        res.end(download);
+    });
+
+}
 
