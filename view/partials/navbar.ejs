@@ -4,9 +4,10 @@
     <div class="sidenav">
       <a href="/">Home</a>
       <a href="/adminHome">For Admin</a>
+      <a href="/studentHome">For Student</a>
       <a href="#changePassword">Change Password</a>
-      <a href="#contact">Notice</a>
-      <a href="#courseInfo">CourseInfo</a>
+      <!-- <a href="#contact">Notice</a> -->
+      <!-- <a href="#courseInfo">CourseInfo</a> -->
       <a href="/teacherLogout">LogOut</a>
     </div>
     <% } else if (from == 'teacherGuest'){%>
@@ -26,8 +27,8 @@
             <a href="/adminHome">Admin Home</a>
             <a href="/">Teacher Home</a>
           <a href="#changePassword">Change Password</a>
-          <a href="#contact">Notice</a>
-          <a href="#courseInfo">CourseInfo</a>
+          <!-- <a href="#contact">Notice</a> -->
+          <!-- <a href="#courseInfo">CourseInfo</a> -->
           <a href="/admin/result">Result</a>
           <a href="/adminLogOut">LogOut</a>
         </div>
@@ -35,13 +36,13 @@
             <div class="sidenav">
               <a href="/studentHome">Home</a>
               <a href="#contact">Contact</a>
-              <a href="#contact">Website</a>
+              <a href="https://hstu.ac.bd/">Website</a>
             </div>
           <% } else if(from == 'studentDashboard'){ %>
             <div class="sidenav">
               <a href="/studentHome">Profile</a>
-              <a href="#contact">Result</a>
-              <a href="#contact">Notice</a>
+              <!-- <a href="#contact">Result</a> -->
+              <a href="https://hstu.ac.bd/page/notice_all">Notice</a>
               <a href="/studentLogOut">LogOut</a>
             </div>
           <% } %>
