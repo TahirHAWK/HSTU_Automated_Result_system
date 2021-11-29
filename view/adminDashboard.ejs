@@ -27,7 +27,7 @@
             Degree: <%= course.degree %> <br> <%= course.levelSemester %> <br> Credits: <%= course.credit %> <br> 
           </p>
           <% if(course.assignedTeacher){ %> 
-           <a href="/admin/courses/<%=  course.course_code %>" class="btn btn-outline-success">Ressign Teacher</a>
+           <a href="/admin/courses/<%=  course.course_code %>" class="btn btn-outline-success">Reassign Teacher</a>
         <% } else { %>
           <a href="/admin/courses/<%=  course.course_code %>" class="btn btn-outline-secondary">Assign Teacher</a>
           <% } %>

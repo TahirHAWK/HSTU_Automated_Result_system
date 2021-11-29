@@ -1,6 +1,7 @@
 const courseInfo = require('../db').db().collection('courseInfo')
 const pdfMake = require('pdfmake/build/pdfmake');
 const pdfFonts = require('pdfmake/build/vfs_fonts');
+var _ = require('lodash');
 var fs = require('fs');
 const Teacher = require('../model/Teacher')
 
@@ -242,15 +243,19 @@ exports.printAsPdf = function(req, res, next){
 
     let allDetails = [ { text: 'Teacher Name: ', style: 'header' }, teacherName, { text: 'Course Title: ', style: 'header' }, courseTitle, { text:  'Course Code: ', style: 'header' }, course_code, { text:  'Credits: ', style: 'header' },  creditHour, { text:  'Total: ', style: 'header' }, fullMarks]
 
+    if(ID_Number){
+        for(i=0; i< ID_Number.length; i++){
+            let markSingle = [ ID_Number[i], Attendance[i], ClassTest[i], Mid[i], FinalA[i], FinalB[i], Total[i], Marks[i], LetterGrade[i], GradePoint[i]]
+            allMarks.push(markSingle)
+        }
 
-    for(i=0; i< ID_Number.length; i++){
-        let markSingle = [ ID_Number[i], Attendance[i], ClassTest[i], Mid[i], FinalA[i], FinalB[i], Total[i], Marks[i], LetterGrade[i], GradePoint[i]]
-        allMarks.push(markSingle)
+    } else{
+        allMarks.push(["List is empty", "Contact Enrollment section for more details", "", "", "", "", "", "", "", ""])
     }
 
     // ID_Number, Attendance, ClassTest, Mid, FinalA, FinalB, Total, Marks, LetterGrade, GradePoint
     // `Course Title: ${courseTitle}`, `Assigned Teacher: ${teacherName}`, `Credit: ${creditHour}`,
-console.log(allMarks, '--> for test')
+console.log(allMarks,ID_Number, '--> for test')
 
     var documentDefinition = {
         pageOrientation: 'landscape',
@@ -307,7 +312,7 @@ console.log(allMarks, '--> for test')
         res.writeHead(200, 
         {
             'Content-Type': 'application/pdf',
-            'Content-Disposition':'attachment;filename="filename.pdf"'
+            'Content-Disposition':`attachment;filename="${teacherName}_${course_code}.pdf"`
         });
 
         const download = Buffer.from(data.toString('utf-8'), 'base64');
