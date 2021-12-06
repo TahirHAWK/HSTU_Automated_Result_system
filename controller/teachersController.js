@@ -76,7 +76,7 @@ exports.home = function(req, res){
             let teacher = new Teacher(req.session.user)
             teacher.fetchAssignedCourses().then(
                 (courses) => {
-                    res.render('teacherDashboard', {registerName: req.session.user.registerName, AssignedCourses: courses, from: 'teacherDashboard'})
+                    res.render('teacherDashboard', {registerName: req.session.user.registerName, AssignedCourses: courses, from: 'teacherDashboard', style: ''})
                 }
             ).catch( 
                 (errors) => {
@@ -85,7 +85,7 @@ exports.home = function(req, res){
             )
             
         } else {
-            res.render('teacherGuest', {errors: req.flash('errors'), from: 'teacherGuest'})
+            res.render('teacherGuest', {errors: req.flash('errors'), from: 'teacherGuest',  style: ''})
             // we could've wrote req.session.user.flash.errors to access the flash data but we want to access it and delete it as soon as we access it, that's why the flash method is used in the errors: req.flash('errors') instead of accessing the session.
         }
 }
@@ -100,8 +100,8 @@ exports.gradingSystem = function(req, res){
                 teacher.showCourseGrades().then(
                     (grade) => {
                         console.log('from grading system function controller: ', courses)
-                        let totalMarks
-                        res.render('singleCourseTeacher', {course_code: req.params.course_code, grade: grade, coursesData: fetchedCourses,totalMarks, from: 'teacherDashboard'})
+                        let totalMarks 
+                        res.render('singleCourseTeacher', {course_code: req.params.course_code, grade: grade, coursesData: fetchedCourses, totalMarks, from: 'teacherDashboard', style: 'singleCourseTeacher'})
                     }
                 )
 
@@ -129,7 +129,7 @@ exports.gradingSystemEdit = function(req, res){
                 (grade) => {
                     console.log('from grading system function controller: ', courses)
                     let totalMarks
-                    res.render('singleCourseTeacherEdit', {course_code: req.params.course_code, grade: grade, coursesData: fetchedCourses,totalMarks, from: 'teacherDashboard'})
+                    res.render('singleCourseTeacherEdit', {course_code: req.params.course_code, grade: grade, coursesData: fetchedCourses,totalMarks, from: 'teacherDashboard', style: ''})
                 }
             )
 

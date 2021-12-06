@@ -80,7 +80,7 @@ exports.home = function(req, res){
         admin.showAllCourses() 
         .then((result) =>{
             console.log(req.session.admin)
-            res.render('adminDashboard', {registerName: req.session.admin.registerName, courseData: result, from: 'adminDashboard'})
+            res.render('adminDashboard', {registerName: req.session.admin.registerName, courseData: result, from: 'adminDashboard' , style: ''})
         })         
             .catch((error) => 
                 { 
@@ -89,7 +89,7 @@ exports.home = function(req, res){
         )
             } 
      else {
-        res.render('adminGuest', {errors: req.flash('errors'), from: 'adminGuest'})
+        res.render('adminGuest', {errors: req.flash('errors'), from: 'adminGuest', style: ''})
         // we could've wrote req.session.user.flash.errors to access the flash data but we want to access it and delete it as soon as we access it, that's why the flash method is used in the errors: req.flash('errors') instead of accessing the session.
     }
 }
@@ -102,7 +102,7 @@ exports.assignTeacher = function(req, res){
     let admin = new Admin(req.session.admin)
     admin.showAllTeachers().then(
         (result) =>{
-            res.render('singleCourseAdmin', {teacherData: result, courseCodeNow, from: 'adminDashboard'}) 
+            res.render('singleCourseAdmin', {teacherData: result, courseCodeNow, from: 'adminDashboard', style: ''}) 
         } 
     ).catch(
         (error) => { 
@@ -137,7 +137,7 @@ exports.resultAllSemester = function(req, res) {
     admin.searchResultInfo().then(
         (result) => {
             console.log('From resultAllSemester',result)
-            res.render('resultAllSemester', {registerName: req.session.admin.registerName, from: 'adminDashboard', result})
+            res.render('resultAllSemester', {registerName: req.session.admin.registerName, from: 'adminDashboard', result, style: ''})
         }
     ).catch(
         (error) => {
@@ -151,7 +151,7 @@ exports.resultAllSemester = function(req, res){
     let admin = new Admin(req.session.admin)
     admin.searchResultInfo().then(
         (result) => {
-            res.render('resultAllSemester', {registerName: req.session.admin.registerName, from: 'adminDashboard', resultInfo: result})
+            res.render('resultAllSemester', {registerName: req.session.admin.registerName, from: 'adminDashboard', resultInfo: result, style: ''})
         }
     ).catch(
         (error) => {
@@ -179,7 +179,7 @@ exports.showSingleResult = function(req, res) {
                 console.log(courseCodesOnly, 'course code only: only contain course codes')
                 console.log(studentresult, 'student result: contains grades with course course and IDs')
                 console.log(onlyStudentId, 'only student ids')
-                    res.render('showSingleResult', {semester: req.params.Levelsemester, from: 'adminDashboard', courseInfo: courseDataquery, studentresult: studentresult, courseCodeOnly: courseCodesOnly, studentIDs: onlyStudentId})
+                    res.render('showSingleResult', {semester: req.params.Levelsemester, from: 'adminDashboard', courseInfo: courseDataquery, studentresult: studentresult, courseCodeOnly: courseCodesOnly, studentIDs: onlyStudentId, style: ''})
             }
         )
         })

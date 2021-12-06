@@ -61,9 +61,9 @@ exports.home = function(req, res){
 
     let student = new Student(req.body)
     if(req.session.student && req.session.student.loginAs == 'student'){
-        res.render('studentDashboard', {registerName: req.session.student.registerName, from: 'studentDashboard'})
+        res.render('studentDashboard', {registerName: req.session.student.registerName, from: 'studentDashboard', style: ''})
     } else {
-        res.render('studentGuest', {errors: req.flash('errors'), from: 'studentGuest'})
+        res.render('studentGuest', {errors: req.flash('errors'), from: 'studentGuest', style: ''})
         // we could've wrote req.session.user.flash.errors to access the flash data but we want to access it and delete it as soon as we access it, that's why the flash method is used in the errors: req.flash('errors') instead of accessing the session.
     }
 }
@@ -72,7 +72,7 @@ exports.showSingleResult = function(req, res){
     let student = new Student(req.params.Levelsemester)
     student.findResultOfStudent(req.session.student).then((result) => {
 
-        res.render('studentSingleResult', {Levelsemester: req.params.Levelsemester, from: 'studentDashboard', studentMarks: result, studentDetail: req.session.student})
+        res.render('studentSingleResult', {Levelsemester: req.params.Levelsemester, from: 'studentDashboard', studentMarks: result, studentDetail: req.session.student, style: ''})
     })
 
 }

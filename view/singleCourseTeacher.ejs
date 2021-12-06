@@ -1,22 +1,23 @@
 <html lang="en">
     <%- include('./partials/head.ejs') %>
+    
 
 <body>
     <%- include('./partials/navbar.ejs') %>
-
+    
     
   
-  <div class="main">
+    <div class="main">
 
-    
-    <% let courseTitle %>
-    <% let creditHour %>
-    <% let fullMarks %>
-    <% let teacherName %>
-<!-- declared variables for pdf-->
-
-    <h3>Welcome to Teachers Dashboard</h3>
-    <h2>Course code: <%= course_code %></h2>
+      
+      <% let courseTitle %>
+      <% let creditHour %>
+      <% let fullMarks %>
+      <% let teacherName %>
+      <!-- declared variables for pdf-->
+      
+      <h3>Welcome to Teachers Dashboard</h3>
+      <h2>Course code: <%= course_code %></h2>
     <u><h3>Insert Marks separately:</h3></u>
     <hr>
     <div class="row">
@@ -24,7 +25,7 @@
         <div class="card card text-white bg-secondary mb-3">
           <div class="card-body">
             <h5 class="card-title">Single Category Marks</h5>
-            <p class="card-text">Quiz</p>
+            <p class="card-text">Attendance</p>
             <a href="#" class="btn btn-primary">Assign Grades</a>
           </div>
         </div>
@@ -67,88 +68,46 @@
           </div>
         </div>
       </div>
+      <div class="col-sm-6">
+        <div class="card text-white bg-secondary mb-3">
+          <div class="card-body">
+            <h5 class="card-title">For Final Correction</h5>
+            <p class="card-text">Before Publishing</p>
+            <a class="btn btn-primary" id="OverallButtonAssign">Assign Grades(Overall)</a>
+          </div>
+        </div>
+      </div>
     </div>
+    <!--Overall Modal starts -->
+    <div id="overallMarks" class="modal">
+          
+        <!-- Modal content -->
+        <div class="modal-content">
+        <div class="modal-header">
+        <span class="close">&times;</span>
+        <h2>Overall:</h2>
+        </div>
+        <div class="modal-body">
 
-<hr>
-<u><h3>Overall:</h3></u>
-    <table class="table table-sm table table-striped table table-hover" id="table">
-        <thead>
-
-          <% coursesData.forEach((courseData) => {  %>
-            <% if(courseData.course_code == course_code){ %>
-            <tr>
-              <th scope="col">Course Title:</th>
-              <th scope="col" style="color: blueviolet"><%= courseTitle = courseData.course_title %></th>
-              <th scope="col">Credit hours:</th>
-              <th scope="col" style="color: blueviolet"><%= creditHour = courseData.credit %></th>
-              <th scope="col">Full Marks:</th>
-              <th scope="col" style="color: blueviolet">
-                <% (  courseData.credit == 3 ) ? ( totalMarks = 150 ) :( (courseData.credit == 2 ) ? ( totalMarks = 100 ) :  (totalMarks = 100 )) %>
-                <%= fullMarks = totalMarks %>
-                
-                </th>
-              <th scope="col">Name of Examiner: </th>
-              <th scope="col" style="color: blueviolet"><%= teacherName = courseData.assignedTeacher %></th>
-
-            </tr>
-            <% } %>
-          <% }) %>  
-          <tr>
-            <th scope="col">ID Number</th>
-            <th scope="col">Attendance</th>
-            <th scope="col">Class Test</th>
-            <th scope="col">Mid</th>
-            <th scope="col">Final(Section A)</th>
-            <th scope="col">Final(Section B)</th>
-            <th scope="col">Total</th>
-            <th scope="col">Marks(%)</th>
-            <th scope="col">Letter Grade</th>
-            <th scope="col">Grade Point</th>
-          </tr>
-        </thead>
-        <tbody>
-          <form action="/marksPDF" method="post">
-            <input type="hidden" name="courseTitle" value="<%=courseTitle%>">
-            <input type="hidden" name="course_code" value="<%=course_code%>">
-            <input type="hidden" name="creditHour" value="<%=creditHour%>">
-            <input type="hidden" name="fullMarks" value="<%=fullMarks%>">
-            <input type="hidden" name="teacherName" value="<%=teacherName%>">
-            
-            <% grade.forEach((grade) => { %>
-          <tr>
-            <th scope="row"><%= grade.ID_Number %><input type="hidden" name="ID_Number" value="<%= grade.ID_Number %>"></th>
-            <td><%= grade.Attendance %><input type="hidden" name="Attendance" value="<%= grade.Attendance %>"></td>
-            <td><%= grade.ClassTest %><input type="hidden" name="ClassTest" value="<%= grade.ClassTest %>"></td>
-            <td><%= grade.Mid %><input type="hidden" name="Mid" value="<%= grade.Mid %>"></td>
-            <td><%= grade.FinalA %><input type="hidden" name="FinalA" value="<%= grade.FinalA %>"></td>
-            <td><%= grade.FinalB %><input type="hidden" name="FinalB" value="<%= grade.FinalB %>"></td>
-            <td><%= grade.Total %><input type="hidden" name="Total" value="<%= grade.Total %>"></td>
-            <td><%= grade.Marks %><input type="hidden" name="Marks" value="<%= grade.Marks %>"></td>
-            <td><%= grade.LetterGrade %><input type="hidden" name="LetterGrade" value="<%= grade.LetterGrade %>"></td>
-            <td><%= grade.GradePoint %><input type="hidden" name="GradePoint" value="<%= grade.GradePoint %>"></td>
-          </tr>
-          <% }) %>
-
-        </tbody>
-      </table>
+        <%- include('./partials/overallFromsingleCourseTeacher.ejs') %>
 
 
-      <% coursesData.forEach((courseData) => { %>
 
-      <% if(courseData.course_code == course_code && courseData.finalSubmission == false){ %>
-      <a href="/courses/grading/edit/<%= course_code %>/<%= courseData.credit %>"><button type="button" class="btn btn-outline-info">Assign or Edit Grades</button></a> 
-      <button type="submit" class="btn btn-outline-info">Export as PDF</button>
-      <!-- <button id="pdfExport" class="btn btn-outline-info" onclick="generatePdf()">Export as PDF(From Browser)</button> -->
-    </form>
-      <% } else if(courseData.course_code == course_code) { %>
-        <hr><a href="/"><button type="button" class="btn btn-outline-info">Back to Home</button></a>
-        <button type="submit" class="btn btn-outline-info">Export as PDF</button>
-        <!-- <button id="pdfExport" class="btn btn-outline-info" onclick="generatePdf()">Export as PDF(From Browser)</button> -->
-      </form>
-      <% } %>    
+        </div>
+        <div class="modal-footer">
+        <h3>Modal Footer</h3>
+        </div>
+        </div>
+
+        </div>
+        <!-- Overall Modal ends -->
+    <hr>
         
-      <% }) %>
+    
       <%- include('./partials/footer.ejs') %>
-  </div>
+      
+</div>
+
+<%- include('./partials/scripts/overallModal') %>
 </body>
 </html>

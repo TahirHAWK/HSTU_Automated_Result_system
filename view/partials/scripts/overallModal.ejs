@@ -1,0 +1,27 @@
+<script>
+// Get the OverallMarksSection
+var OverallMarksSection = document.getElementById("overallMarks");
+
+// Get the button that opens the OverallMarksSection
+var btn = document.getElementById("OverallButtonAssign");
+
+// Get the <span> element that closes the OverallMarksSection
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the OverallMarksSection 
+btn.onclick = function() {
+  OverallMarksSection.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the OverallMarksSection
+span.onclick = function() {
+  OverallMarksSection.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the OverallMarksSection, close it
+window.onclick = function(event) {
+  if (event.target == OverallMarksSection) {
+    OverallMarksSection.style.display = "none";
+  }
+}
+    </script>
