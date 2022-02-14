@@ -99,7 +99,7 @@ exports.gradingSystem = function(req, res){
                 teacher = new Teacher(req.params)
                 teacher.showCourseGrades().then(
                     (grade) => {
-                        console.log('from grading system function controller: ', courses)
+                        // console.log(grade, '--> from grading system function controller ')
                         let totalMarks 
                         res.render('singleCourseTeacher', {course_code: req.params.course_code, grade: grade, coursesData: fetchedCourses, totalMarks, from: 'teacherDashboard', style: 'singleCourseTeacher'})
                     }
@@ -127,7 +127,6 @@ exports.gradingSystemEdit = function(req, res){
             teacher = new Teacher(req.params)
             teacher.showCourseGrades().then(
                 (grade) => {
-                    console.log('from grading system function controller: ', courses)
                     let totalMarks
                     res.render('singleCourseTeacherEdit', {course_code: req.params.course_code, grade: grade, coursesData: fetchedCourses,totalMarks, from: 'teacherDashboard', style: ''})
                 }
@@ -146,6 +145,7 @@ exports.gradingSystemEdit = function(req, res){
 
 
 exports.gradeSubmitTemp = function(req, res){
+    console.log(req.body, req.params, "--> from gradeSubmitTemp")
     let teacher = new Teacher(req.body)
     teacher.convertDataForDB(req.params.credit).then(
         (result) => {
@@ -321,3 +321,14 @@ console.log(allMarks,ID_Number, '--> for test')
 
 }
 
+
+exports.attendanceOnly = function(req, res){
+    let teacher = new Teacher(req.body)
+    teacher.insertAttendanceOnly().then((result) => {
+        res.redirect('/')
+    })
+    .catch((result) => {
+        
+        res.redirect('/')
+    })
+}

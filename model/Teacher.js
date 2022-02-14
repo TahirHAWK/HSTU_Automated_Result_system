@@ -156,7 +156,7 @@ Teacher.prototype.login = function(){
 
 
 Teacher.prototype.fetchAssignedCourses = function(){
-    console.log('from fetchAssignedCoures, ', this.data.teacherID)
+    // console.log('from fetchAssignedCoures, ', this.data.teacherID)
     let fetchCoursePromise = new Promise((resolve, reject) => {
         courseInfo.find({assignedTeacherID: this.data.teacherID }).toArray()
         .then(  
@@ -176,7 +176,6 @@ Teacher.prototype.fetchAssignedCourses = function(){
 
 
 Teacher.prototype.showCourseGrades = function(){
-    console.log('from showCourseGrades', this.data.course_code)
     let showGradePromise = new Promise((resolve, reject) => {
         gradeInfo.find({Coursecode: this.data.course_code}).toArray().then(
             (grade) => {
@@ -291,7 +290,7 @@ Teacher.prototype.submitTeacherGrade = function(formDataObject){
     let submitPromise = new Promise((resolve, reject) => {
         let Coursecode = formDataObject[1].Coursecode
 
-   
+        console.log(formDataObject, "<<form data object>>")
 
         gradeInfo.deleteMany({Coursecode: Coursecode}).then(
             (s) => {
@@ -314,7 +313,7 @@ Teacher.prototype.finalSubmit = function(){
     let submitPromise = new Promise((resolve, reject) => {
         courseInfo.updateOne({course_code: this.data.course_code},{$set: {finalSubmission: true}}).then(
             (result) => {
-                console.log(result)
+                // console.log(result)
                 resolve(result)
             }
         ).catch(
@@ -326,6 +325,37 @@ Teacher.prototype.finalSubmit = function(){
     })
     return submitPromise
 }
+
+
+Teacher.prototype.insertAttendanceOnly = function(){
+    let singleAttendance = this.data
+   let insertAttendancePromise = new Promise((resolve, reject) => {
+        gradeInfo.find({Coursecode: this.data.Coursecode}).toArray()
+        .then((result) => {
+            console.log(singleAttendance, "<<-- from submitted form on frontend")
+            for(i=0; i<singleAttendance.Attendance.length; i++){
+                result[i].Attendance = singleAttendance.Attendance[i]
+            }   
+          console.log(result, '->>changed array')
+            let changedResult = result
+            gradeInfo.deleteMany({Coursecode: this.data.Coursecode})
+            .then((s)=> {
+                gradeInfo.insertMany(changedResult)
+                .then((ss)=> {
+                    resolve()
+                })
+            })
+        }).catch((error)=> {
+            console.log(error, "<<cannot update only attendance mark>>")
+            reject()
+        })
+        
+       
+   })
+   return insertAttendancePromise
+    
+}
+
 
 
 module.exports = Teacher
