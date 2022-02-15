@@ -9,6 +9,8 @@
     <tbody>
         <form action="/attendanceOnly" method="post">
           <input type="hidden" name="Coursecode" value="<%= course_code %>">
+          <input type="hidden" name="credit" value="<%= creditHour %>">
+          <input type="hidden" name="fullMarks" value="<%= fullMarks %>">
         <% grade.forEach((marks) => { %>
       <tr>
         <th scope="row"><input type="hidden" name="ID_Number" id="<%= marks.ID_Number %>" value="<%= marks.ID_Number %>"><%= marks.ID_Number %></th>

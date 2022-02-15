@@ -149,9 +149,10 @@ exports.gradeSubmitTemp = function(req, res){
     let teacher = new Teacher(req.body)
     teacher.convertDataForDB(req.params.credit).then(
         (result) => {
+            console.log(result, '<<from after convertDataForDB<<')
             teacher.submitTeacherGrade(result).then(
                 (result) => {
-                    console.log( req.body,'<-- from gradeSubmitTemp ' )
+                    // console.log( req.body,'<-- from gradeSubmitTemp ' )
                     res.redirect(`/courses/grading/edit/${req.params.course_code}/${req.params.credit}`)
                 }
             ).catch(
@@ -324,8 +325,10 @@ console.log(allMarks,ID_Number, '--> for test')
 
 exports.attendanceOnly = function(req, res){
     let teacher = new Teacher(req.body)
+    console.log(req.body, 'from attendanceOnly on teachers controller')
     teacher.insertAttendanceOnly().then((result) => {
-        res.redirect('/')
+        res.redirect(`/courses/grading/${req.body.Coursecode}/${req.body.credit}`)
+        
     })
     .catch((result) => {
         

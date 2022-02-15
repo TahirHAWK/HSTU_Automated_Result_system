@@ -290,7 +290,7 @@ Teacher.prototype.submitTeacherGrade = function(formDataObject){
     let submitPromise = new Promise((resolve, reject) => {
         let Coursecode = formDataObject[1].Coursecode
 
-        console.log(formDataObject, "<<form data object>>")
+        // console.log(formDataObject, "<<form data object>>")
 
         gradeInfo.deleteMany({Coursecode: Coursecode}).then(
             (s) => {
@@ -326,17 +326,90 @@ Teacher.prototype.finalSubmit = function(){
     return submitPromise
 }
 
+Teacher.prototype.calculationForAttendanceOnly = function(dataToWorkwith){
+   
+    dataToWorkwith.Total = dataToWorkwith.Attendance + dataToWorkwith.ClassTest + dataToWorkwith.Mid + dataToWorkwith.FinalA + dataToWorkwith.FinalB
+    dataToWorkwith.Marks = (100*dataToWorkwith.Total)/Number(this.data.fullMarks)
+
+    let calculatedGrades = this.GPAandLetterGradeCalculator(dataToWorkwith.Marks, dataToWorkwith.GradePoint, dataToWorkwith.LetterGrade)
+    dataToWorkwith.GradePoint = calculatedGrades.GradePoint
+    dataToWorkwith.LetterGrade = calculatedGrades.LetterGrade
+
+}
+
+Teacher.prototype.GPAandLetterGradeCalculator = function(marks, gradePoint, letterGrade){
+    if (marks >= 80) {
+        letterGrade = 'A+';
+        gradePoint = 4.00;
+    }
+    else {
+    if (marks >= 75 && marks <= 79) {
+    letterGrade = 'A';
+    gradePoint = 3.75
+    }
+    else {
+    if (marks >= 70 && marks <= 74) {
+    letterGrade = 'A-';
+    gradePoint = 3.50
+    }
+    else {
+    if (marks >= 65 && marks <= 69) {
+    letterGrade = 'B+';
+    gradePoint = 3.25
+    }
+    else {
+    if (marks >= 60 && marks <= 64) {
+    letterGrade = 'B';
+    gradePoint = 3.00
+    } else{
+    if (marks >= 55 && marks <= 59) {
+    letterGrade = 'B-';
+    gradePoint = 2.75
+    } else{
+    if (marks >= 50 && marks <= 54) {
+        letterGrade = 'C+';
+        gradePoint = 2.50
+    } else{
+    if (marks >= 45 && marks <= 49) {
+        letterGrade = 'C';
+        gradePoint = 2.25
+    } else{
+        if (marks >= 40 && marks <= 44) {
+            letterGrade = 'D';
+        gradePoint = 2.00
+    } else{
+        if (marks < 40) {
+            letterGrade = 'F';
+            gradePoint = 0.00
+    } else{
+                
+            }
+        }
+    }
+}
+
+    }
+
+    }
+    }
+    }
+    }
+    }
+    return {GradePoint: gradePoint, LetterGrade: letterGrade}
+}
 
 Teacher.prototype.insertAttendanceOnly = function(){
     let singleAttendance = this.data
    let insertAttendancePromise = new Promise((resolve, reject) => {
         gradeInfo.find({Coursecode: this.data.Coursecode}).toArray()
         .then((result) => {
-            console.log(singleAttendance, "<<-- from submitted form on frontend")
+            // console.log(singleAttendance, "<<-- from submitted form on frontend")
             for(i=0; i<singleAttendance.Attendance.length; i++){
-                result[i].Attendance = singleAttendance.Attendance[i]
+                result[i].Attendance = Number(singleAttendance.Attendance[i])
+                // should do the calculation of each students grades before submission to db
+               this.calculationForAttendanceOnly(result[i])
             }   
-          console.log(result, '->>changed array')
+        //   console.log(result, '->>changed array')
             let changedResult = result
             gradeInfo.deleteMany({Coursecode: this.data.Coursecode})
             .then((s)=> {
