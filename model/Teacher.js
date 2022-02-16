@@ -74,13 +74,13 @@ Teacher.prototype.detectDuplicate = function(){
         if(result != null) {
 
              this.errors.push('The email you entered already assigned to another account. ')
-            console.log('from detectDup', this.errors)
+             //   console.log('from detectDup', this.errors)
             resolve(this.errors)
 
          
         } else {
 
-            console.log("from detect Duplicate, no duplicates found.")
+             //   console.log("from detect Duplicate, no duplicates found.")
             reject('not found')
         }
         
@@ -104,26 +104,26 @@ Teacher.prototype.register =  function(){
              this.detectDuplicate()
                 .then(
                  (result) => {
-                     console.log('from register model on resolve: ', this.errors, result)
+                      //   console.log('from register model on resolve: ', this.errors, result)
                      resolve(this.errors)
                     }
                     )
                 .catch(
                 (result) => {
-                console.log('from register model on reject: ', this.errors, result)
+                 //   console.log('from register model on reject: ', this.errors, result)
                         
                 if(!this.errors.length && result == 'not found'){
                     // if no error is found then it will hash and insert inside db
                     let salt = bcrypt.genSaltSync(10)
                     this.data.registerPassword = bcrypt.hashSync(this.data.registerPassword, salt)
                     teachersAuth.insertOne(this.data).then(
-                        console.log('data inserted with password hashing.')
+                         //   console.log('data inserted with password hashing.')
                         )
                         
                         reject('inserted')
                 }
                 else{
-                    console.log('after rejects on model with no duplicate bt cleanup and validation: ',this.errors, result)
+                     //   console.log('after rejects on model with no duplicate bt cleanup and validation: ',this.errors, result)
                     resolve(this.errors)
                     
                 }
@@ -140,10 +140,10 @@ Teacher.prototype.login = function(){
         .then((attemptedUser) => {
         if(attemptedUser && bcrypt.compareSync(this.data.registerPassword, attemptedUser.registerPassword)){
             // bcrypt.compareSync is a method of the bcrypt package that compares two values that are accepted as parameters after hashing the first one.
-            console.log('user found from User model login prototype: ', attemptedUser)
+             //   console.log('user found from User model login prototype: ', attemptedUser)
             resolve(attemptedUser)
         } else { 
-            console.log('user not found from User model login prototype!!!')
+             //   console.log('user not found from User model login prototype!!!')
             reject('invalid username/password!!!!')
 
         }
@@ -161,12 +161,12 @@ Teacher.prototype.fetchAssignedCourses = function(){
         courseInfo.find({assignedTeacherID: this.data.teacherID }).toArray()
         .then(  
             (result) => {
-                console.log(result)
+                 //   console.log(result)
                 resolve(result)
             }
         ).catch( 
             (errors) => {
-                console.log('cannot find fetch courses for this teacher(on fetchAssignedCourses model).')
+                 //   console.log('cannot find fetch courses for this teacher(on fetchAssignedCourses model).')
                 reject(errors)
             }
         )
@@ -206,63 +206,10 @@ Teacher.prototype.convertDataForDB = function(credit){
                 let letterGrade
                 let gradePoint
     
-                if (marks >= 80) {
-                    letterGrade = 'A+';
-                    gradePoint = 4.00;
-                }
-                else {
-                if (marks >= 75 && marks <= 79) {
-                letterGrade = 'A';
-                gradePoint = 3.75
-                }
-                else {
-                if (marks >= 70 && marks <= 74) {
-                letterGrade = 'A-';
-                gradePoint = 3.50
-                }
-                else {
-                if (marks >= 65 && marks <= 69) {
-                letterGrade = 'B+';
-                gradePoint = 3.25
-                }
-                else {
-                if (marks >= 60 && marks <= 64) {
-                letterGrade = 'B';
-                gradePoint = 3.00
-                } else{
-                if (marks >= 55 && marks <= 59) {
-                letterGrade = 'B-';
-                gradePoint = 2.75
-                } else{
-                if (marks >= 50 && marks <= 54) {
-                    letterGrade = 'C+';
-                    gradePoint = 2.50
-                } else{
-                if (marks >= 45 && marks <= 49) {
-                    letterGrade = 'C';
-                    gradePoint = 2.25
-                } else{
-                    if (marks >= 40 && marks <= 44) {
-                        letterGrade = 'D';
-                    gradePoint = 2.00
-                } else{
-                    if (marks < 40) {
-                        letterGrade = 'F';
-                        gradePoint = 0.00
-                } else{
-                            
-                        }
-                    }
-                }
-            }
-
-                }
-
-                }
-                }
-                }
-                }
-                }
+                let calculatedGPA = this.GPAandLetterGradeCalculator(marks, letterGrade, gradePoint)
+                // {GradePoint: gradePoint, LetterGrade: letterGrade}
+                letterGrade = calculatedGPA.LetterGrade
+                gradePoint = calculatedGPA.GradePoint
     
              attendance1 = {
                 ID_Number: formDataArray.ID_Number[i], 
@@ -301,7 +248,7 @@ Teacher.prototype.submitTeacherGrade = function(formDataObject){
                 )
             }
         ) .catch((error) => {
-            console.log('cannot deletemany')
+             //   console.log('cannot deletemany')
             reject('error')
         })
         
@@ -318,7 +265,7 @@ Teacher.prototype.finalSubmit = function(){
             }
         ).catch(
             (error) => {
-                console.log('cannot update data for finalSubmit.')
+                 //   console.log('cannot update data for finalSubmit.')
                 reject(error)
             }
         )
@@ -409,7 +356,7 @@ Teacher.prototype.insertAttendanceOnly = function(){
                 // should do the calculation of each students grades before submission to db
                this.calculationForAttendanceOnly(result[i])
             }   
-        //   console.log(result, '->>changed array')
+        //  console.log(result, '->>changed array')
             let changedResult = result
             gradeInfo.deleteMany({Coursecode: this.data.Coursecode})
             .then((s)=> {
@@ -419,7 +366,7 @@ Teacher.prototype.insertAttendanceOnly = function(){
                 })
             })
         }).catch((error)=> {
-            console.log(error, "<<cannot update only attendance mark>>")
+             //   console.log(error, "<<cannot update only attendance mark>>")
             reject()
         })
         
