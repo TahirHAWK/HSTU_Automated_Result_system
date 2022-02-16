@@ -14,7 +14,7 @@
         <% grade.forEach((marks) => { %>
       <tr>
         <th scope="row"><input type="hidden" name="ID_Number" id="<%= marks.ID_Number %>" value="<%= marks.ID_Number %>"><%= marks.ID_Number %></th>
-        <td><input type="text" name="Attendance" id="<%= marks.ID_Number %>" value="<%= marks.Attendance %>"></td>
+        <td><input type="text" name="Attendance" id="<%= marks.ID_Number %>" value="<%= marks.Attendance %>" onKeyPress="enterpressalert(event, this)"></td>
       </tr>
       <% }) %>
     </tbody>
