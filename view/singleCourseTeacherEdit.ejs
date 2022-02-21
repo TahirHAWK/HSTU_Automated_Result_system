@@ -54,12 +54,12 @@
             <form action="/courses/grading/<%= course_code %>/<%= creditVar %>" method="post">
               <% grade.forEach((grade) => { %>
           <tr>
-            <th scope="row"><%= grade.ID_Number %><input type = "hidden" name = "ID_Number" value = "<%= grade.ID_Number %>" /></th>
-            <td><input type="number" name="Attendance" value="<%= grade.Attendance %>"></td>
-            <td><input type="number" name="ClassTest" value="<%= grade.ClassTest %>"></td>
-            <td><input type="number" name="Mid" value="<%= grade.Mid %>"></td>
-            <td><input type="number" name="FinalA" value="<%= grade.FinalA %>"></td>
-            <td><input type="number" name="FinalB" value="<%= grade.FinalB %>"></td>
+            <th scope="row"><%= grade.ID_Number %><input type = "hidden" name = "ID_Number" value = "<%= grade.ID_Number %>"/></th>
+            <td><input type="number" name="Attendance" value="<%= grade.Attendance %>" ></td>
+            <td><input type="number" name="ClassTest" value="<%= grade.ClassTest %>" ></td>
+            <td><input type="number" name="Mid" value="<%= grade.Mid %>" ></td>
+            <td><input type="number" name="FinalA" value="<%= grade.FinalA %>" ></td>
+            <td><input type="number" name="FinalB" value="<%= grade.FinalB %>" ></td>
             <td><%= grade.Total %><input type="hidden" name="Coursecode" value="<%= course_code %>"></td>
             <td><%= grade.Marks %></td>
             <td><%= grade.LetterGrade %></td>
@@ -74,6 +74,7 @@
     </form>
     <a href="/courses/grading/<%= course_code %>/<%= creditVar %>"><button class="btn btn-outline-info">Goto Previous Page</button></a>
     <a href="/courses/grading/finalSubmit/<%= course_code %>/<%= creditVar %>"><button class="btn btn-outline-info">Publish</button></a>
+ 
     <%- include('./partials/footer.ejs') %>
   </div>
 </body>

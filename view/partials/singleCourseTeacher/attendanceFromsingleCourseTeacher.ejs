@@ -1,0 +1,23 @@
+<table class="table table-sm table table-striped table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">ID Number</th>
+        <th scope="col">Attendance</th>
+
+      </tr>
+    </thead>
+    <tbody>
+        <form action="/attendanceOnly" method="post">
+          <input type="hidden" name="Coursecode" value="<%= course_code %>">
+          <input type="hidden" name="credit" value="<%= creditHour %>">
+          <input type="hidden" name="fullMarks" value="<%= fullMarks %>" id="fullMarks">
+        <% grade.forEach((marks) => { %>
+      <tr>
+        <th scope="row"><input type="hidden" name="ID_Number" id="<%= marks.ID_Number %>" value="<%= marks.ID_Number %>"><%= marks.ID_Number %></th>
+        <td><input type="text" name="Attendance" id="<%= marks.ID_Number %>" value="<%= marks.Attendance %>" onKeyPress="enterpressalert(event, this)"></td>
+      </tr>
+      <% }) %>
+    </tbody>
+</table>
+<input type="submit" value="Save Changes" class="btn btn-outline-info">
+</form>

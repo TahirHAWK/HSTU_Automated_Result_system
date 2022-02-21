@@ -1,0 +1,27 @@
+<script>
+    // Get the attendanceOnly
+    var attendanceOnly = document.getElementById("attendanceOnly");
+    
+    // Get the button that opens the attendanceOnly
+    var attendanceOnlyBtn = document.getElementById("attendanceOnlyAssign");
+    
+    // Get the <attendanceOnlySpan> element that closes the attendanceOnly
+    var attendanceOnlySpan = document.getElementsByClassName("close")[1];
+    
+    // When the user clicks the button, open the attendanceOnly 
+    attendanceOnlyBtn.onclick = function() {
+      attendanceOnly.style.display = "block";
+    }
+    
+    // When the user clicks on <attendanceOnlySpan> (x), close the attendanceOnly
+    attendanceOnlySpan.onclick = function() {
+      attendanceOnly.style.display = "none";
+    }
+    
+    // When the user clicks anywhere outside of the attendanceOnly, close it
+    window.onclick = function(event) {
+      if (event.target == attendanceOnly) {
+        attendanceOnly.style.display = "none";
+      }
+    }
+        </script>

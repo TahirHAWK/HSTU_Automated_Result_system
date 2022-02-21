@@ -1,7 +1,7 @@
 <html lang="en">
     <%- include('./partials/head.ejs') %>
     
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+
 <body>
     <%- include('./partials/navbar.ejs') %>
     
@@ -26,7 +26,7 @@
           <div class="card-body">
             <h5 class="card-title">Single Category Marks</h5>
             <p class="card-text">Attendance</p>
-            <a href="#" class="btn btn-primary">Assign Grades</a>
+            <a class="btn btn-primary" id="attendanceOnlyAssign">Assign Grades</a>
           </div>
         </div>
       </div>
@@ -78,9 +78,9 @@
         </div>
       </div>
     </div>
+
     <!--Overall Modal starts -->
     <div id="overallMarks" class="modal">
-          
         <!-- Modal content -->
         <div class="modal-content">
         <div class="modal-header">
@@ -88,26 +88,64 @@
         <h2>Overall:</h2>
         </div>
         <div class="modal-body">
-
-        <%- include('./partials/overallFromsingleCourseTeacher.ejs') %>
-
+        <%- include('./partials/singleCourseTeacher/overallFromsingleCourseTeacher.ejs') %>
       </div>
       <div class="modal-footer">
         <h3></h3>
       </div>
-    </div>
-    
-        </div>
+      </div>
+      </div>
         <!-- Overall Modal ends -->
-        <hr>
+<%- include('./partials/singleCourseTeacher/scripts/overallModal') %>
+
         
-        <%- include('./partials/attendanceFromsingleCourseTeacher.ejs') %>
+        <!-- AttendanceOnly modal starts here. -->
+        <div id="attendanceOnly" class="modal">
+          <!-- Modal content -->
+          <div class="modal-content">
+          <div class="modal-header">
+          <span class="close">&times;</span>
+          <h2>Overall:</h2>
+          </div>
+          <div class="modal-body">
+          <%- include('./partials/singleCourseTeacher/attendanceFromsingleCourseTeacher.ejs') %>
+        </div>
+        <div class="modal-footer">
+          <h3></h3>
+        </div>
+        </div>
+        </div>
+          <%- include('./partials/singleCourseTeacher/scripts/attendanceOnly') %>
+          <!-- attendanceOnly Modal ends here -->
+
+          <hr>
+       
+                  <!-- CTOnly modal starts here. -->
+        <div id="CTOnly" class="modal">
+          <!-- Modal content -->
+          <div class="modal-content">
+          <div class="modal-header">
+          <span class="close1">&times;</span>
+          <h2>Overall:</h2>
+          </div>
+          <div class="modal-body">
+          <%- include('./partials/singleCourseTeacher/CTFromSingleCourseTeacher.ejs') %>
+        </div>
+        <div class="modal-footer">
+          <h3></h3>
+        </div>
+        </div>
+        </div>
+
+          <!-- CTOnly Modal ends here -->
+
         
+
+
         <%- include('./partials/footer.ejs') %>
       
 </div>
 <!-- scripts of VanillaJS -->
-<%- include('./partials/scripts/overallModal') %>
-<%- include('./partials/scripts/attendanceOnlySubmissionScript') %>
+<%- include('./partials/singleCourseTeacher/scripts/attendanceOnlySubmissionScript') %>
 </body>
 </html>

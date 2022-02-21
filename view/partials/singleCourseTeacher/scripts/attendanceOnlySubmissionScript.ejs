@@ -1,0 +1,79 @@
+<!-- This is the script which works so that pressing enter it will jump to next line just like an excel sheet -->
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+<script>
+      // fetching fullMarks for further processing of single marks range
+      let fullMarks = document.getElementById('fullMarks').value
+      console.log("Full marks: ",fullMarks)
+
+      let compareMarkRange = function(FieldName, value, fullMarks){
+        let maxAttendance 
+          let maxCT 
+          let maxMid 
+          let maxPartA 
+          let maxPartB 
+        // so the fullMarks value is accessible from this function
+        if(fullMarks == 150){
+           maxAttendance = 15
+           maxCT = 15
+           maxMid = 30
+           maxPartA = 45
+           maxPartB = 45
+        } else {
+           maxAttendance = 10
+           maxCT = 10
+           maxMid = 20
+           maxPartA = 30
+           maxPartB = 30          
+        }
+
+        if(FieldName == 'Attendance'){
+          if(Number(value) > Number(maxAttendance)){
+            alert('Out of range, please note that for '+ fullMarks + ' marks exam, the maximum mark for attendance is ' + maxAttendance+ '.')
+            return 0
+          }
+          else {
+            return value
+          }
+          
+        }
+        else if(FieldName == '' ) {
+
+        }
+        else if(FieldName == '' ) {
+
+        }
+        else if(FieldName == '' ) {
+
+        }
+        else if(FieldName == '' ) {
+
+        }
+        else{
+          console.log('not attendance')
+        }
+      }
+
+
+    let inputData = document.getElementsByTagName("input")
+    console.log(document.getElementsByTagName("input"), "--> input Data")
+    let i=0; 
+    function enterpressalert(e, codeOfField){
+    var code = (e.keyCode ? e.keyCode : e.which);
+    if(code == 13) { //Enter keycode
+      // in this section we can see what the user has typed, so it can later be compared and used
+      console.log(e.which, code, e.key, codeOfField.name, codeOfField.value)
+      
+      codeOfField.value = compareMarkRange(codeOfField.name, codeOfField.value, fullMarks)
+
+      // detecting index of input Using lodash.findIndex
+      let index = _.findIndex(inputData, (e) => {
+        return e == codeOfField;
+      }, 0);
+      i=index
+      i=i+2
+      console.log(i, 'value of i')
+        inputData[i].focus();
+        e.preventDefault();
+    }
+    }
+</script>
