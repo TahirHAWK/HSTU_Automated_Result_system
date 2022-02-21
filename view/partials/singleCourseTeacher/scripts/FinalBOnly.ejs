@@ -1,0 +1,27 @@
+<script>
+    // Get the FinalBOnly
+    var FinalBOnly = document.getElementById("FinalBOnly");
+    
+    // Get the button that opens the FinalBOnly
+    var FinalBOnlyBtn = document.getElementById("FinalBOnlyAssign");
+    
+    // Get the <FinalBOnlySpan> element that closes the FinalBOnly
+    var FinalBOnlySpan = document.getElementsByClassName("close6")[0];
+    
+    // When the user clicks the button, open the FinalBOnly 
+    FinalBOnlyBtn.onclick = function() {
+      FinalBOnly.style.display = "block";
+    }
+    
+    // When the user clicks on <FinalBOnlySpan> (x), close the FinalBOnly
+    FinalBOnlySpan.onclick = function() {
+      FinalBOnly.style.display = "none";
+    }
+    
+    // When the user clicks anywhere outside of the FinalBOnly, close it
+    window.onclick = function(event) {
+      if (event.target == FinalBOnly) {
+        FinalBOnly.style.display = "none";
+      }
+    }
+        </script>

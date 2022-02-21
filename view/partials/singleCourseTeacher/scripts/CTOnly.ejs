@@ -1,0 +1,27 @@
+<script>
+    // Get the CTOnly
+    var CTOnly = document.getElementById("CTOnly");
+    
+    // Get the button that opens the CTOnly
+    var CTOnlyBtn = document.getElementById("CTOnlyAssign");
+    
+    // Get the <CTOnlySpan> element that closes the CTOnly
+    var CTOnlySpan = document.getElementsByClassName("close3")[0];
+    
+    // When the user clicks the button, open the CTOnly 
+    CTOnlyBtn.onclick = function() {
+      CTOnly.style.display = "block";
+    }
+    
+    // When the user clicks on <CTOnlySpan> (x), close the CTOnly
+    CTOnlySpan.onclick = function() {
+      CTOnly.style.display = "none";
+    }
+    
+    // When the user clicks anywhere outside of the CTOnly, close it
+    window.onclick = function(event) {
+      if (event.target == CTOnly) {
+        CTOnly.style.display = "none";
+      }
+    }
+        </script>

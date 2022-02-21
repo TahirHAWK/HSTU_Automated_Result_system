@@ -1,0 +1,27 @@
+<script>
+    // Get the MidOnly
+    var MidOnly = document.getElementById("MidOnly");
+    
+    // Get the button that opens the MidOnly
+    var MidOnlyBtn = document.getElementById("MidOnlyAssign");
+    
+    // Get the <MidOnlySpan> element that closes the MidOnly
+    var MidOnlySpan = document.getElementsByClassName("close4")[0];
+    
+    // When the user clicks the button, open the MidOnly 
+    MidOnlyBtn.onclick = function() {
+      MidOnly.style.display = "block";
+    }
+    
+    // When the user clicks on <MidOnlySpan> (x), close the MidOnly
+    MidOnlySpan.onclick = function() {
+      MidOnly.style.display = "none";
+    }
+    
+    // When the user clicks anywhere outside of the MidOnly, close it
+    window.onclick = function(event) {
+      if (event.target == MidOnly) {
+        MidOnly.style.display = "none";
+      }
+    }
+        </script>

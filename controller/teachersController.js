@@ -335,3 +335,7 @@ exports.attendanceOnly = function(req, res){
         res.redirect('/')
     })
 }
+
+exports.CTOnly = function(req, res){
+    console.log(req.body)
+}

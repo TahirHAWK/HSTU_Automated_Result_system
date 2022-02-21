@@ -1,0 +1,27 @@
+<script>
+    // Get the FinalAOnly
+    var FinalAOnly = document.getElementById("FinalAOnly");
+    
+    // Get the button that opens the FinalAOnly
+    var FinalAOnlyBtn = document.getElementById("FinalAOnlyAssign");
+    
+    // Get the <FinalAOnlySpan> element that closes the FinalAOnly
+    var FinalAOnlySpan = document.getElementsByClassName("close5")[0];
+    
+    // When the user clicks the button, open the FinalAOnly 
+    FinalAOnlyBtn.onclick = function() {
+      FinalAOnly.style.display = "block";
+    }
+    
+    // When the user clicks on <FinalAOnlySpan> (x), close the FinalAOnly
+    FinalAOnlySpan.onclick = function() {
+      FinalAOnly.style.display = "none";
+    }
+    
+    // When the user clicks anywhere outside of the FinalAOnly, close it
+    window.onclick = function(event) {
+      if (event.target == FinalAOnly) {
+        FinalAOnly.style.display = "none";
+      }
+    }
+        </script>

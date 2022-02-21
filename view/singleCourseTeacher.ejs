@@ -35,7 +35,7 @@
           <div class="card-body">
             <h5 class="card-title">Single Category Marks</h5>
             <p class="card-text">Class Test</p>
-            <a href="#" class="btn btn-primary">Assign Grades</a>
+            <a class="btn btn-primary" id="CTOnlyAssign">Assign Grades</a>
           </div>
         </div>
       </div>
@@ -46,7 +46,7 @@
           <div class="card-body">
             <h5 class="card-title">Single Category Marks</h5>
             <p class="card-text">Mid</p>
-            <a href="#" class="btn btn-primary">Assign Grades</a>
+            <a id="MidOnlyAssign" class="btn btn-primary">Assign Grades</a>
           </div>
         </div>
       </div>
@@ -55,7 +55,7 @@
           <div class="card-body">
             <h5 class="card-title">Single Category Marks</h5>
             <p class="card-text">Final (Section A)</p>
-            <a href="#" class="btn btn-primary">Assign Grades</a>
+            <a id="FinalAOnlyAssign" class="btn btn-primary">Assign Grades</a>
           </div>
         </div>
       </div>
@@ -64,7 +64,7 @@
           <div class="card-body">
             <h5 class="card-title">Single Category Marks</h5>
             <p class="card-text">Final (Section B)</p>
-            <a href="#" class="btn btn-primary">Assign Grades</a>
+            <a id="FinalBOnlyAssign" class="btn btn-primary">Assign Grades</a>
           </div>
         </div>
       </div>
@@ -84,7 +84,7 @@
         <!-- Modal content -->
         <div class="modal-content">
         <div class="modal-header">
-        <span class="close">&times;</span>
+        <span class="close1">&times;</span>
         <h2>Overall:</h2>
         </div>
         <div class="modal-body">
@@ -104,7 +104,7 @@
           <!-- Modal content -->
           <div class="modal-content">
           <div class="modal-header">
-          <span class="close">&times;</span>
+          <span class="close2">&times;</span>
           <h2>Overall:</h2>
           </div>
           <div class="modal-body">
@@ -117,27 +117,89 @@
         </div>
           <%- include('./partials/singleCourseTeacher/scripts/attendanceOnly') %>
           <!-- attendanceOnly Modal ends here -->
-
-          <hr>
-       
-                  <!-- CTOnly modal starts here. -->
+                    
+          <!-- CTOnly modal starts here. -->
         <div id="CTOnly" class="modal">
           <!-- Modal content -->
           <div class="modal-content">
           <div class="modal-header">
-          <span class="close1">&times;</span>
+          <span class="close3">&times;</span>
           <h2>Overall:</h2>
-          </div>
+        </div>
           <div class="modal-body">
-          <%- include('./partials/singleCourseTeacher/CTFromSingleCourseTeacher.ejs') %>
+            <%- include('./partials/singleCourseTeacher/CTFromSingleCourseTeacher.ejs') %>
+          </div>
+          <div class="modal-footer">
+            <h3></h3>
+          </div>
+        </div>
+        </div>
+        
+        <%- include('./partials/singleCourseTeacher/scripts/CTOnly') %>
+        <!-- CTOnly Modal ends here -->
+
+      
+        <!-- MidOnly modal starts here. -->
+      <div id="MidOnly" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+        <div class="modal-header">
+        <span class="close4">&times;</span>
+        <h2>Overall:</h2>
+      </div>
+        <div class="modal-body">
+          <%- include('./partials/singleCourseTeacher/MidFromSingleCourseTeacher.ejs') %>
         </div>
         <div class="modal-footer">
           <h3></h3>
         </div>
-        </div>
-        </div>
+      </div>
+      </div>
+      
+      <%- include('./partials/singleCourseTeacher/scripts/MidOnly') %>
+      <!-- MidOnly Modal ends here -->
 
-          <!-- CTOnly Modal ends here -->
+
+        <!-- FinalA modal starts here. -->
+      <div id="FinalAOnly" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+        <div class="modal-header">
+        <span class="close5">&times;</span>
+        <h2>Overall:</h2>
+      </div>
+        <div class="modal-body">
+          <%- include('./partials/singleCourseTeacher/FinalAFromSingleCourseTeacher.ejs') %>
+        </div>
+        <div class="modal-footer">
+          <h3></h3>
+        </div>
+      </div>
+      </div>
+      
+      <%- include('./partials/singleCourseTeacher/scripts/FinalAOnly') %>
+      <!-- FinalAOnly Modal ends here -->
+
+    
+      <!-- FinalB modal starts here. -->
+    <div id="FinalBOnly" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+      <div class="modal-header">
+      <span class="close6">&times;</span>
+      <h2>Overall:</h2>
+    </div>
+      <div class="modal-body">
+        <%- include('./partials/singleCourseTeacher/FinalBFromSingleCourseTeacher.ejs') %>
+      </div>
+      <div class="modal-footer">
+        <h3></h3>
+      </div>
+    </div>
+    </div>
+    
+    <%- include('./partials/singleCourseTeacher/scripts/FinalBOnly') %>
+    <!-- FinalBOnly Modal ends here -->
 
         
 

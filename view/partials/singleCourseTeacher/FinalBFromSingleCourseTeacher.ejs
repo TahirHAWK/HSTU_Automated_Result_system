@@ -2,12 +2,12 @@
     <thead>
       <tr>
         <th scope="col">ID Number</th>
-        <th scope="col">Class Test</th>
+        <th scope="col">Final(Part A) marks</th>
 
       </tr>
     </thead>
     <tbody>
-        <form action="/CTOnly" method="post">
+        <form action="/FinalBOnly" method="post">
           <input type="hidden" name="Coursecode" value="<%= course_code %>">
           <input type="hidden" name="credit" value="<%= creditHour %>">
           <input type="hidden" name="fullMarks" value="<%= fullMarks %>" id="fullMarks">
@@ -15,7 +15,7 @@
       <tr>
           
         <th scope="row"><input type="hidden" name="ID_Number" id="<%= marks.ID_Number %>" value="<%= marks.ID_Number %>"><%= marks.ID_Number %></th>
-        <td><input type="text" name="ClassTest" value="<%= marks.ClassTest %>" onkeypress='enterpressalert(event, this)'></td>
+        <td><input type="text" name="FinalB" value="<%= marks.FinalB %>" onkeypress='enterpressalert(event, this)'></td>
       </tr>
       <% }) %>
     </tbody>

@@ -36,17 +36,41 @@
           }
           
         }
-        else if(FieldName == '' ) {
-
+        else if(FieldName == 'ClassTest' ) {
+          if(Number(value) > Number(maxCT)){
+            alert('Out of range, please note that for '+ fullMarks + ' marks exam, the maximum mark for class test is ' + maxCT + '.')
+            return 0
+          }
+          else {
+            return value
+          }
         }
-        else if(FieldName == '' ) {
-
+        else if(FieldName == 'Mid' ) {
+          if(Number(value) > Number(maxMid)){
+            alert('Out of range, please note that for '+ fullMarks + ' marks exam, the maximum mark for mid is ' + maxMid + '.')
+            return 0
+          }
+          else {
+            return value
+          }
         }
-        else if(FieldName == '' ) {
-
+        else if(FieldName == 'FinalA' ) {
+          if(Number(value) > Number(maxPartA)){
+            alert('Out of range, please note that for '+ fullMarks + ' marks exam, the maximum mark for Final part A is ' + maxPartA + '.')
+            return 0
+          }
+          else {
+            return value
+          }
         }
-        else if(FieldName == '' ) {
-
+        else if(FieldName == 'FinalB' ) {
+          if(Number(value) > Number(maxPartB)){
+            alert('Out of range, please note that for '+ fullMarks + ' marks exam, the maximum mark for Final part B is ' + maxPartB + '.')
+            return 0
+          }
+          else {
+            return value
+          }
         }
         else{
           console.log('not attendance')
