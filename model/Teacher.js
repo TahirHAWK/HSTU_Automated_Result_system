@@ -408,4 +408,100 @@ Teacher.prototype.insertCTOnly = function(){
 }
 
 
+Teacher.prototype.insertMidOnly = function(){
+    let singleMid = this.data
+    let insertMidPromise = new Promise((resolve, reject) => {
+        gradeInfo.find({Coursecode: this.data.Coursecode}).toArray()
+        .then((result) => {
+            // console.log(singleCT, "<<-- from submitted form on frontend")
+            for(i=0; i<singleMid.Mid.length; i++){
+                result[i].Mid = Number(singleMid.Mid[i])
+                // should do the calculation of each students grades before submission to db
+               this.calculationForSingleMarkOnly(result[i])
+            }   
+        //  console.log(result, '->>changed array')
+            let changedResult = result
+            gradeInfo.deleteMany({Coursecode: this.data.Coursecode})
+            .then((s)=> {
+                gradeInfo.insertMany(changedResult)
+                .then((ss)=> {
+                    resolve()
+                })
+            })
+        }).catch((error)=> {
+             //   console.log(error, "<<cannot update only CT mark>>")
+            reject()
+        })
+        
+       
+   })
+   return insertMidPromise
+    
+}
+
+Teacher.prototype.insertFinalAOnly = function(){
+    let singleFinalA = this.data
+    let insertFinalAPromise = new Promise((resolve, reject) => {
+        gradeInfo.find({Coursecode: this.data.Coursecode}).toArray()
+        .then((result) => {
+            // console.log(singleCT, "<<-- from submitted form on frontend")
+            for(i=0; i<singleFinalA.FinalA.length; i++){
+                result[i].FinalA = Number(singleFinalA.FinalA[i])
+                // should do the calculation of each students grades before submission to db
+               this.calculationForSingleMarkOnly(result[i])
+            }   
+        //  console.log(result, '->>changed array')
+            let changedResult = result
+            gradeInfo.deleteMany({Coursecode: this.data.Coursecode})
+            .then((s)=> {
+                gradeInfo.insertMany(changedResult)
+                .then((ss)=> {
+                    resolve()
+                })
+            })
+        }).catch((error)=> {
+             //   console.log(error, "<<cannot update only CT mark>>")
+            reject()
+        })
+        
+       
+   })
+   return insertFinalAPromise
+    
+}
+
+Teacher.prototype.insertFinalBOnly = function(){
+    let singleFinalB = this.data
+    let insertFinalBPromise = new Promise((resolve, reject) => {
+        gradeInfo.find({Coursecode: this.data.Coursecode}).toArray()
+        .then((result) => {
+            // console.log(singleCT, "<<-- from submitted form on frontend")
+            for(i=0; i<singleFinalB.FinalB.length; i++){
+                result[i].FinalB = Number(singleFinalB.FinalB[i])
+                // should do the calculation of each students grades before submission to db
+               this.calculationForSingleMarkOnly(result[i])
+            }   
+        //  console.log(result, '->>changed array')
+            let changedResult = result
+            gradeInfo.deleteMany({Coursecode: this.data.Coursecode})
+            .then((s)=> {
+                gradeInfo.insertMany(changedResult)
+                .then((ss)=> {
+                    resolve()
+                })
+            })
+        }).catch((error)=> {
+             //   console.log(error, "<<cannot update only CT mark>>")
+            reject()
+        })
+        
+       
+   })
+   return insertFinalBPromise
+    
+}
+
+
+
+
 module.exports = Teacher

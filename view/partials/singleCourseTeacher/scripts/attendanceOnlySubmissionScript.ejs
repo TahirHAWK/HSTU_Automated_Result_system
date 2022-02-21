@@ -6,6 +6,11 @@
       console.log("Full marks: ",fullMarks)
 
       let compareMarkRange = function(FieldName, value, fullMarks){
+        // checking if the entered value is negative.
+        if(value < 0){
+          alert('Marks cannot be negative.')
+          value = 0
+        }
         let maxAttendance 
           let maxCT 
           let maxMid 

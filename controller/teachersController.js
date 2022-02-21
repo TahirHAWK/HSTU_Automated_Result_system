@@ -340,7 +340,46 @@ exports.CTOnly = function(req, res){
     let teacher = new Teacher(req.body)
     console.log(req.body, 'from CTOnly on teachers controller')
     teacher.insertCTOnly().then((result) => {
-        console.log('job done')
+        res.redirect(`/courses/grading/${req.body.Coursecode}/${req.body.credit}`)
+        
+    })
+    .catch((result) => {
+        
+        res.redirect('/')
+    })
+}
+
+exports.MidOnly = function(req, res){
+    let teacher = new Teacher(req.body)
+    console.log(req.body, 'from MidOnly on teachers controller')
+    teacher.insertMidOnly().then((result) => {
+        res.redirect(`/courses/grading/${req.body.Coursecode}/${req.body.credit}`)
+        
+    })
+    .catch((result) => {
+        
+        res.redirect('/')
+    })
+}
+
+exports.FinalAOnly = function(req, res){
+    let teacher = new Teacher(req.body)
+    teacher.insertFinalAOnly().then((result) => {
+        res.redirect(`/courses/grading/${req.body.Coursecode}/${req.body.credit}`)
+        
+    })
+    .catch((result) => {
+        
+        res.redirect('/')
+    })
+}
+
+
+exports.FinalBOnly = function(req, res){
+    let teacher = new Teacher(req.body)
+    console.log(req.body, 'from /FinalBOnly on teachers controller')
+    teacher.insertFinalBOnly().then((result) => {
+        console.log('job done on finalB')
         res.redirect(`/courses/grading/${req.body.Coursecode}/${req.body.credit}`)
         
     })

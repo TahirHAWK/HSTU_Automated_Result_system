@@ -17,6 +17,9 @@ router.get('/courses/grading/edit/:course_code/:credit', teachersController.grad
 router.get('/courses/grading/finalSubmit/:course_code/:credit', teachersController.finalSubmit)
 router.post('/attendanceOnly', teachersController.attendanceOnly)
 router.post('/CTOnly', teachersController.CTOnly)
+router.post('/MidOnly', teachersController.MidOnly)
+router.post('/FinalAOnly', teachersController.FinalAOnly)
+router.post('/FinalBOnly', teachersController.FinalBOnly)
 
 
  
