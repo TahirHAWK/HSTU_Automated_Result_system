@@ -337,5 +337,15 @@ exports.attendanceOnly = function(req, res){
 }
 
 exports.CTOnly = function(req, res){
-    console.log(req.body)
+    let teacher = new Teacher(req.body)
+    console.log(req.body, 'from CTOnly on teachers controller')
+    teacher.insertCTOnly().then((result) => {
+        console.log('job done')
+        res.redirect(`/courses/grading/${req.body.Coursecode}/${req.body.credit}`)
+        
+    })
+    .catch((result) => {
+        
+        res.redirect('/')
+    })
 }

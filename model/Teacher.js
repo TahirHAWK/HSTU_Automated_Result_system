@@ -273,7 +273,7 @@ Teacher.prototype.finalSubmit = function(){
     return submitPromise
 }
 
-Teacher.prototype.calculationForAttendanceOnly = function(dataToWorkwith){
+Teacher.prototype.calculationForSingleMarkOnly = function(dataToWorkwith){
    
     dataToWorkwith.Total = dataToWorkwith.Attendance + dataToWorkwith.ClassTest + dataToWorkwith.Mid + dataToWorkwith.FinalA + dataToWorkwith.FinalB
     dataToWorkwith.Marks = (100*dataToWorkwith.Total)/Number(this.data.fullMarks)
@@ -347,14 +347,14 @@ Teacher.prototype.GPAandLetterGradeCalculator = function(marks, gradePoint, lett
 
 Teacher.prototype.insertAttendanceOnly = function(){
     let singleAttendance = this.data
-   let insertAttendancePromise = new Promise((resolve, reject) => {
+    let insertAttendancePromise = new Promise((resolve, reject) => {
         gradeInfo.find({Coursecode: this.data.Coursecode}).toArray()
         .then((result) => {
             // console.log(singleAttendance, "<<-- from submitted form on frontend")
             for(i=0; i<singleAttendance.Attendance.length; i++){
                 result[i].Attendance = Number(singleAttendance.Attendance[i])
                 // should do the calculation of each students grades before submission to db
-               this.calculationForAttendanceOnly(result[i])
+               this.calculationForSingleMarkOnly(result[i])
             }   
         //  console.log(result, '->>changed array')
             let changedResult = result
@@ -376,6 +376,36 @@ Teacher.prototype.insertAttendanceOnly = function(){
     
 }
 
+Teacher.prototype.insertCTOnly = function(){
+    let singleCT = this.data
+    let insertCTPromise = new Promise((resolve, reject) => {
+        gradeInfo.find({Coursecode: this.data.Coursecode}).toArray()
+        .then((result) => {
+            // console.log(singleCT, "<<-- from submitted form on frontend")
+            for(i=0; i<singleCT.ClassTest.length; i++){
+                result[i].ClassTest = Number(singleCT.ClassTest[i])
+                // should do the calculation of each students grades before submission to db
+               this.calculationForSingleMarkOnly(result[i])
+            }   
+        //  console.log(result, '->>changed array')
+            let changedResult = result
+            gradeInfo.deleteMany({Coursecode: this.data.Coursecode})
+            .then((s)=> {
+                gradeInfo.insertMany(changedResult)
+                .then((ss)=> {
+                    resolve()
+                })
+            })
+        }).catch((error)=> {
+             //   console.log(error, "<<cannot update only CT mark>>")
+            reject()
+        })
+        
+       
+   })
+   return insertCTPromise
+    
+}
 
 
 module.exports = Teacher
