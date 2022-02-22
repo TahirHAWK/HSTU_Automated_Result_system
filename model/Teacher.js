@@ -191,6 +191,83 @@ Teacher.prototype.showCourseGrades = function(){
     return showGradePromise
 }
 
+Teacher.prototype.checkDataRangeValidity = function(FieldName, value, fullMarks){
+    // checking if the entered value is negative.
+    if(value < 0){
+      console.log('Marks cannot be negative.')
+      value = 0
+    }
+    let maxAttendance 
+      let maxCT 
+      let maxMid 
+      let maxPartA 
+      let maxPartB 
+    // so the fullMarks value is accessible from this function
+    if(fullMarks == 150){
+       maxAttendance = 15
+       maxCT = 15
+       maxMid = 30
+       maxPartA = 45
+       maxPartB = 45
+    } else {
+       maxAttendance = 10
+       maxCT = 10
+       maxMid = 20
+       maxPartA = 30
+       maxPartB = 30          
+    }
+
+    if(FieldName == 'Attendance'){
+      if(Number(value) > Number(maxAttendance)){
+        console.log('Out of range, please note that for '+ fullMarks + ' marks exam, the maximum mark for attendance is ' + maxAttendance+ '. But you typed ' + value + '.')
+        return 0
+      }
+      else {
+        return value
+      }
+      
+    }
+    else if(FieldName == 'ClassTest' ) {
+      if(Number(value) > Number(maxCT)){
+        console.log('Out of range, please note that for '+ fullMarks + ' marks exam, the maximum mark for class test is ' + maxCT + '.')
+        return 0
+      }
+      else {
+        return value
+      }
+    }
+    else if(FieldName == 'Mid' ) {
+      if(Number(value) > Number(maxMid)){
+        console.log('Out of range, please note that for '+ fullMarks + ' marks exam, the maximum mark for mid is ' + maxMid + '.')
+        return 0
+      }
+      else {
+        return value
+      }
+    }
+    else if(FieldName == 'FinalA' ) {
+      if(Number(value) > Number(maxPartA)){
+        console.log('Out of range, please note that for '+ fullMarks + ' marks exam, the maximum mark for Final part A is ' + maxPartA + '.')
+        return 0
+      }
+      else {
+        return value
+      }
+    }
+    else if(FieldName == 'FinalB' ) {
+      if(Number(value) > Number(maxPartB)){
+        console.log('Out of range, please note that for '+ fullMarks + ' marks exam, the maximum mark for Final part B is ' + maxPartB + '.')
+        return 0
+      }
+      else {
+        return value
+      }
+    }
+    else{
+      console.log('non existance of field.')
+    }
+  }
+
 Teacher.prototype.convertDataForDB = function(credit){
 
     let convertPromise = new Promise((resolve, reject) => {
@@ -199,6 +276,13 @@ Teacher.prototype.convertDataForDB = function(credit){
         let formDataArray = this.data 
         let formDataObject = []
         for( i = 0; i < formDataArray.ID_Number.length; i++ ){
+                // this is the part where the form data is checked if that is within the right range or not.
+                 formDataArray.Attendance[i] = this.checkDataRangeValidity('Attendance',Number(formDataArray.Attendance[i]), Number(totalMarks))
+                 formDataArray.ClassTest[i] = this.checkDataRangeValidity('ClassTest',Number(formDataArray.ClassTest[i]), Number(totalMarks))
+                 formDataArray.Mid[i] = this.checkDataRangeValidity('Mid',Number(formDataArray.Mid[i]), Number(totalMarks))
+                 formDataArray.FinalA[i] = this.checkDataRangeValidity('FinalA',Number(formDataArray.FinalA[i]), Number(totalMarks))
+                 formDataArray.FinalB[i] = this.checkDataRangeValidity('FinalB',Number(formDataArray.FinalB[i]), Number(totalMarks))
+
                 let total = (Number(formDataArray.Attendance[i]) + Number(formDataArray.ClassTest[i]) + Number(formDataArray.Mid[i]) + Number(formDataArray.FinalA[i]) + Number(formDataArray.FinalB[i]))
     
                 let marks = ((100*Number(total))/Number(totalMarks))
@@ -207,7 +291,7 @@ Teacher.prototype.convertDataForDB = function(credit){
                 let gradePoint
     
                 let calculatedGPA = this.GPAandLetterGradeCalculator(marks, letterGrade, gradePoint)
-                // {GradePoint: gradePoint, LetterGrade: letterGrade}
+                // returns --> {GradePoint: gradePoint, LetterGrade: letterGrade}
                 letterGrade = calculatedGPA.LetterGrade
                 gradePoint = calculatedGPA.GradePoint
     
@@ -353,6 +437,8 @@ Teacher.prototype.insertAttendanceOnly = function(){
             // console.log(singleAttendance, "<<-- from submitted form on frontend")
             for(i=0; i<singleAttendance.Attendance.length; i++){
                 result[i].Attendance = Number(singleAttendance.Attendance[i])
+                // check if the data entered is from correct range or not
+                result[i].Attendance = this.checkDataRangeValidity('Attendance', result[i].Attendance, singleAttendance.fullMarks)
                 // should do the calculation of each students grades before submission to db
                this.calculationForSingleMarkOnly(result[i])
             }   
@@ -384,6 +470,8 @@ Teacher.prototype.insertCTOnly = function(){
             // console.log(singleCT, "<<-- from submitted form on frontend")
             for(i=0; i<singleCT.ClassTest.length; i++){
                 result[i].ClassTest = Number(singleCT.ClassTest[i])
+                // check if the data entered is from correct range or not
+                result[i].ClassTest = this.checkDataRangeValidity('ClassTest', result[i].ClassTest, singleCT.fullMarks)
                 // should do the calculation of each students grades before submission to db
                this.calculationForSingleMarkOnly(result[i])
             }   
@@ -416,8 +504,10 @@ Teacher.prototype.insertMidOnly = function(){
             // console.log(singleCT, "<<-- from submitted form on frontend")
             for(i=0; i<singleMid.Mid.length; i++){
                 result[i].Mid = Number(singleMid.Mid[i])
+                // check if the data entered is from correct range or not
+                result[i].Mid = this.checkDataRangeValidity('Mid', result[i].Mid, singleMid.fullMarks)
                 // should do the calculation of each students grades before submission to db
-               this.calculationForSingleMarkOnly(result[i])
+                this.calculationForSingleMarkOnly(result[i])
             }   
         //  console.log(result, '->>changed array')
             let changedResult = result
@@ -447,6 +537,9 @@ Teacher.prototype.insertFinalAOnly = function(){
             // console.log(singleCT, "<<-- from submitted form on frontend")
             for(i=0; i<singleFinalA.FinalA.length; i++){
                 result[i].FinalA = Number(singleFinalA.FinalA[i])
+                // check if the data entered is from correct range or not
+                result[i].FinalA = this.checkDataRangeValidity('FinalA', result[i].FinalA, singleFinalA.fullMarks)
+
                 // should do the calculation of each students grades before submission to db
                this.calculationForSingleMarkOnly(result[i])
             }   
@@ -478,6 +571,8 @@ Teacher.prototype.insertFinalBOnly = function(){
             // console.log(singleCT, "<<-- from submitted form on frontend")
             for(i=0; i<singleFinalB.FinalB.length; i++){
                 result[i].FinalB = Number(singleFinalB.FinalB[i])
+                // check if the data entered is from correct range or not
+                result[i].FinalB = this.checkDataRangeValidity('FinalB', result[i].FinalB, singleFinalB.fullMarks)
                 // should do the calculation of each students grades before submission to db
                this.calculationForSingleMarkOnly(result[i])
             }   
