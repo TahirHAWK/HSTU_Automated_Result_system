@@ -68,15 +68,29 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-6">
-        <div class="card text-white bg-secondary mb-3">
-          <div class="card-body">
-            <h5 class="card-title">For Final Correction</h5>
-            <p class="card-text">Before Publishing</p>
-            <a class="btn btn-primary" id="OverallButtonAssign">Assign Grades(Overall)</a>
+      <% coursesData.forEach((courseData) => { %>
+        <% if(courseData.course_code == course_code && courseData.finalSubmission == false){ %>
+          <div class="col-sm-6">
+            <div class="card text-white bg-secondary mb-3">
+              <div class="card-body">
+                <h5 class="card-title">For Final Correction</h5>
+                <p class="card-text">Before Publishing</p>
+                <a class="btn btn-primary" id="OverallButtonAssign">Assign Grades(Overall)</a>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        <% } else if(courseData.course_code == course_code) { %>
+          <div class="col-sm-6">
+            <div class="card text-white bg-secondary mb-3">
+              <div class="card-body">
+                <h5 class="card-title">Finally Published</h5>
+                <p class="card-text">Marks and GPA</p>
+                <a class="btn btn-primary" id="OverallButtonAssign">Assign Grades(Overall)</a>
+              </div>
+            </div>
+          </div>
+        <% } %>  
+        <% }) %> 
     </div>
 
     <!--Overall Modal starts -->

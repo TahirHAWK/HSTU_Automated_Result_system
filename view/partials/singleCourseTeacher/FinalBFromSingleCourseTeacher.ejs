@@ -15,10 +15,23 @@
       <tr>
           
         <th scope="row"><input type="hidden" name="ID_Number" id="<%= marks.ID_Number %>" value="<%= marks.ID_Number %>"><%= marks.ID_Number %></th>
-        <td><input type="text" name="FinalB" value="<%= marks.FinalB %>" onkeypress='enterpressalert(event, this)'></td>
+        <% coursesData.forEach((courseData) => { %>
+          <% if(courseData.course_code == course_code && courseData.finalSubmission == false){ %>
+            <td><input type="text" name="FinalB" value="<%= marks.FinalB %>" onkeypress='enterpressalert(event, this)'></td>
+          <% } else if(courseData.course_code == course_code) { %>
+            <td><%= marks.FinalB %></td>
+          <% } %>  
+          <% }) %> 
       </tr>
       <% }) %>
     </tbody>
 </table>
-<input type="submit" value="Save Changes" class="btn btn-outline-info">
+<% coursesData.forEach((courseData) => { %>
+  <% if(courseData.course_code == course_code && courseData.finalSubmission == false){ %>
+    <input type="submit" value="Save Changes" class="btn btn-outline-info">
+  <% } else if(courseData.course_code == course_code) { %>
+
+  <% } %>  
+  <% }) %> 
 </form>
+
