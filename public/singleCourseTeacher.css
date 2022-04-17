@@ -25,7 +25,8 @@
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
-    animation-duration: 0.4s
+    animation-duration: 0.4s;
+    max-width: fit-content;
   }
   
   /* Add Animation */
@@ -60,10 +61,22 @@
     color: white;
   }
   
-  .modal-body {padding: 2px 16px;}
+  .modal-body {
+    padding: 2px 16px;
+    padding: 5px 5px;
+    max-width: 60rem;
+  }
   
   .modal-footer {
     padding: 2px 16px;
     background-color: #0b174d;
     color: white;
+  }
+
+  table{
+    min-width: 30rem;
+  }
+
+  td{
+    width: 10rem;
   }
