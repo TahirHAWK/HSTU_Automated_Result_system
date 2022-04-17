@@ -13,7 +13,6 @@
         <thead>
           <tr>
             <th scope="col">Course Code</th>
-            <th scope="col">Marks(%)</th>
             <th scope="col">LetterGrade</th>
             <th scope="col">GradePoint(GPA)</th>
           </tr>
@@ -22,7 +21,6 @@
             <% studentMarks.forEach((marks) => { %>
           <tr>
             <th scope="row"><%= marks.Coursecode %></th>
-            <td><%= marks.Marks %></td>
             <td><%= marks.LetterGrade %></td>
             <td><%= marks.GradePoint %></td>
           </tr>
