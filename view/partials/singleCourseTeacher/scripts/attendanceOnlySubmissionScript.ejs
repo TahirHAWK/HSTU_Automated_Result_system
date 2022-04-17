@@ -84,13 +84,14 @@
 
 
     let inputData = document.getElementsByTagName("input")
-    console.log(document.getElementsByTagName("input"), "--> input Data")
+    let totalInputs = document.getElementsByTagName("input").length-1
+    console.log(document.getElementsByTagName("input").length - 2, "--> input Data")
     let i=0; 
     function enterpressalert(e, codeOfField){
     var code = (e.keyCode ? e.keyCode : e.which);
     if(code == 13) { //Enter keycode
       // in this section we can see what the user has typed, so it can later be compared and used
-      console.log(e.which, code, e.key, codeOfField.name, codeOfField.value)
+      // console.log(e.which, code, e.key, codeOfField.name, codeOfField.value)
       
       codeOfField.value = compareMarkRange(codeOfField.name, codeOfField.value, fullMarks)
 
@@ -99,10 +100,17 @@
         return e == codeOfField;
       }, 0);
       i=index
+      console.log(index, '<-- index')
       i=i+2
-      console.log(i, 'value of i')
+      console.log(i, '<-- i')
+      if(i < totalInputs){
         inputData[i].focus();
         e.preventDefault();
+        
+      }else{
+        console.log('end of inputs reached')
+        e.preventDefault();
+      }
     }
     }
 </script>
