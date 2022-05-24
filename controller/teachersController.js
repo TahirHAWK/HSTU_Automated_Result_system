@@ -221,7 +221,7 @@ exports.convertCourseCreditNumber = function(req, res) {
 
 
 
-exports.printAsPdf = function(req, res, next){ 
+exports.printAsPdf = function(req, res){ 
     console.log(req.body, '--> from printAsPdf')
     let teacherName = req.body.teacherName;
     let courseTitle = req.body.courseTitle;
@@ -254,9 +254,7 @@ exports.printAsPdf = function(req, res, next){
         allMarks.push(["List is empty", "Contact Enrollment section for more details", "", "", "", "", "", "", "", ""])
     }
 
-    // ID_Number, Attendance, ClassTest, Mid, FinalA, FinalB, Total, Marks, LetterGrade, GradePoint
-    // `Course Title: ${courseTitle}`, `Assigned Teacher: ${teacherName}`, `Credit: ${creditHour}`,
-console.log(allMarks,ID_Number, '--> for test')
+
 
     var documentDefinition = {
         pageOrientation: 'landscape',

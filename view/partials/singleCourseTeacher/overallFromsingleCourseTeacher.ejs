@@ -36,24 +36,24 @@
         </thead>
         <tbody>
           <form action="/marksPDF" method="post">
-            <input type="hidden" name="courseTitle" value="<%=courseTitle%>">
-            <input type="hidden" name="course_code" value="<%=course_code%>">
-            <input type="hidden" name="creditHour" value="<%=creditHour%>">
-            <input type="hidden" name="fullMarks" value="<%=fullMarks%>">
-            <input type="hidden" name="teacherName" value="<%=teacherName%>">
+            <input type="hidden" id="courseTitle" name="courseTitle" value="<%=courseTitle%>">
+            <input type="hidden" id="course_code" name="course_code" value="<%=course_code%>">
+            <input type="hidden" id="creditHour"  name="creditHour" value="<%=creditHour%>">
+            <input type="hidden" id="fullMarks"  name="fullMarks" value="<%=fullMarks%>">
+            <input type="hidden" id="teacherName" name="teacherName" value="<%=teacherName%>">
             
             <% grade.forEach((grade) => { %>
               <tr>
-                <th scope="row"><%= grade.ID_Number %><input type="hidden" name="ID_Number" value="<%= grade.ID_Number %>"></th>
-                <td><%= grade.Attendance %><input type="hidden" name="Attendance" value="<%= grade.Attendance %>"></td>
-                <td><%= grade.ClassTest %><input type="hidden" name="ClassTest" value="<%= grade.ClassTest %>"></td>
-                <td><%= grade.Mid %><input type="hidden" name="Mid" value="<%= grade.Mid %>"></td>
-                <td><%= grade.FinalA %><input type="hidden" name="FinalA" value="<%= grade.FinalA %>"></td>
-                <td><%= grade.FinalB %><input type="hidden" name="FinalB" value="<%= grade.FinalB %>"></td>
-                <td><%= grade.Total %><input type="hidden" name="Total" value="<%= grade.Total %>"></td>
-                <td><%= grade.Marks %><input type="hidden" name="Marks" value="<%= grade.Marks %>"></td>
-                <td><%= grade.LetterGrade %><input type="hidden" name="LetterGrade" value="<%= grade.LetterGrade %>"></td>
-            <td><%= grade.GradePoint %><input type="hidden" name="GradePoint" value="<%= grade.GradePoint %>"></td>
+                <th scope="row"><%= grade.ID_Number %><input type="hidden" class="ID_Number"  name="ID_Number" value="<%= grade.ID_Number %>"></th>
+                <td><%= grade.Attendance %><input type="hidden" class="Attendance" name="Attendance" value="<%= grade.Attendance %>"></td>
+                <td><%= grade.ClassTest %><input type="hidden" class="ClassTest" name="ClassTest" value="<%= grade.ClassTest %>"></td>
+                <td><%= grade.Mid %><input type="hidden" class="Mid" name="Mid" value="<%= grade.Mid %>"></td>
+                <td><%= grade.FinalA %><input type="hidden" class="FinalA" name="FinalA" value="<%= grade.FinalA %>"></td>
+                <td><%= grade.FinalB %><input type="hidden" class="FinalB" name="FinalB" value="<%= grade.FinalB %>"></td>
+                <td><%= grade.Total %><input type="hidden" class="Total" name="Total" value="<%= grade.Total %>"></td>
+                <td><%= grade.Marks %><input type="hidden" class="Marks" name="Marks" value="<%= grade.Marks %>"></td>
+                <td><%= grade.LetterGrade %><input type="hidden" class="LetterGrade" name="LetterGrade" value="<%= grade.LetterGrade %>"></td>
+            <td><%= grade.GradePoint %><input type="hidden" class="GradePoint" name="GradePoint" value="<%= grade.GradePoint %>"></td>
           </tr>
           <% }) %>
           
@@ -66,13 +66,15 @@
         <% if(courseData.course_code == course_code && courseData.finalSubmission == false){ %>
           <a href="/courses/grading/edit/<%= course_code %>/<%= courseData.credit %>"><button type="button" class="btn btn-outline-info">Edit Grades Before Publishing</button></a> 
           <button type="submit" class="btn btn-outline-info">Export as PDF</button>
-          <!-- <button id="pdfExport" class="btn btn-outline-info" onclick="generatePdf()">Export as PDF(From Browser)</button> -->
         </form>
+        <!-- the export to excelsheet button must be after the form is finished -->
+        <button id="excelExport" class="btn btn-outline-info">Export as Excelsheet(From Browser)</button>
         <% } else if(courseData.course_code == course_code) { %>
           <hr><a href="/"><button type="button" class="btn btn-outline-info">Back to Home</button></a>
-        <button type="submit" class="btn btn-outline-info">Export as PDF</button>
-        <!-- <button id="pdfExport" class="btn btn-outline-info" onclick="generatePdf()">Export as PDF(From Browser)</button> -->
-      </form>
+          <button type="submit" class="btn btn-outline-info">Export as PDF</button>
+        </form>
+        <!-- the export to excelsheet button must be after the form is finished -->
+      <button id="excelExport" class="btn btn-outline-info">Export as Excelsheet(From Browser)</button>
       <% } %>    
       
       <% }) %>

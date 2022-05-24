@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs')
 let Teacher = function(data){
     this.data = data
     this.errors = []
-}
+} 
 
 Teacher.prototype.cleanUp = function(){
     if(typeof(this.data.registerName) != 'string'){
