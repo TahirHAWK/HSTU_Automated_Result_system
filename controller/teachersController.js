@@ -379,10 +379,12 @@ exports.FinalBOnly = function(req, res){
     teacher.insertFinalBOnly().then((result) => {
         console.log('job done on finalB')
         res.redirect(`/courses/grading/${req.body.Coursecode}/${req.body.credit}`)
-        
+         
     })
     .catch((result) => {
         
         res.redirect('/')
     })
 }
+
+
