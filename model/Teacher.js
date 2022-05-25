@@ -225,6 +225,7 @@ Teacher.prototype.checkDataRangeValidity = function(FieldName, value, fullMarks)
         return 0
       }
       else {
+          value =  Number(value).toFixed(2)
         return value
       }
       
@@ -235,6 +236,7 @@ Teacher.prototype.checkDataRangeValidity = function(FieldName, value, fullMarks)
         return 0
       }
       else {
+        value =  Number(value).toFixed(2)
         return value
       }
     }
@@ -244,6 +246,7 @@ Teacher.prototype.checkDataRangeValidity = function(FieldName, value, fullMarks)
         return 0
       }
       else {
+        value =  Number(value).toFixed(2)
         return value
       }
     }
@@ -253,6 +256,7 @@ Teacher.prototype.checkDataRangeValidity = function(FieldName, value, fullMarks)
         return 0
       }
       else {
+        value =  Number(value).toFixed(2)
         return value
       }
     }
@@ -262,6 +266,7 @@ Teacher.prototype.checkDataRangeValidity = function(FieldName, value, fullMarks)
         return 0
       }
       else {
+        value =  Number(value).toFixed(2)
         return value
       }
     }
@@ -305,8 +310,8 @@ Teacher.prototype.convertDataForDB = function(credit){
                 FinalA: Number(formDataArray.FinalA[i]),
                 FinalB: Number(formDataArray.FinalB[i]),
                 Coursecode: formDataArray.Coursecode[i],
-                Total: total,
-                Marks: marks,
+                Total: total.toFixed(2),
+                Marks: marks.toFixed(2),
                 LetterGrade: letterGrade,
                 GradePoint: gradePoint,
                 Coursecode: course_code,
@@ -360,9 +365,21 @@ Teacher.prototype.finalSubmit = function(){
 }
 
 Teacher.prototype.calculationForSingleMarkOnly = function(dataToWorkwith){
-   
+    // converting the variables to numbers if they were not from before
+    dataToWorkwith.Attendance = Number(dataToWorkwith.Attendance)
+    dataToWorkwith.ClassTest = Number(dataToWorkwith.ClassTest)
+    dataToWorkwith.Mid = Number(dataToWorkwith.Mid)
+    dataToWorkwith.FinalA = Number(dataToWorkwith.FinalA)
+    dataToWorkwith.FinalB = Number(dataToWorkwith.FinalB)
+    
+    
     dataToWorkwith.Total = dataToWorkwith.Attendance + dataToWorkwith.ClassTest + dataToWorkwith.Mid + dataToWorkwith.FinalA + dataToWorkwith.FinalB
     dataToWorkwith.Marks = (100*dataToWorkwith.Total)/Number(this.data.fullMarks)
+    
+    // rounding off numbers after the summation
+    dataToWorkwith.Total = Number(dataToWorkwith.Total).toFixed(2)
+    dataToWorkwith.Marks = Number(dataToWorkwith.Marks).toFixed(2)
+
 
     let calculatedGrades = this.GPAandLetterGradeCalculator(dataToWorkwith.Marks, dataToWorkwith.GradePoint, dataToWorkwith.LetterGrade)
     dataToWorkwith.GradePoint = calculatedGrades.GradePoint

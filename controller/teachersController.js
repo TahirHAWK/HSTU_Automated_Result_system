@@ -323,13 +323,13 @@ exports.printAsPdf = function(req, res){
 
 exports.attendanceOnly = function(req, res){
     let teacher = new Teacher(req.body)
-    console.log(req.body, 'from attendanceOnly on teachers controller')
+    // console.log(req.body, 'from attendanceOnly on teachers controller')
     teacher.insertAttendanceOnly().then((result) => {
         res.redirect(`/courses/grading/${req.body.Coursecode}/${req.body.credit}`)
         
     })
     .catch((result) => {
-        
+        console.log(result, 'error from catch of attendance only')
         res.redirect('/')
     })
 }

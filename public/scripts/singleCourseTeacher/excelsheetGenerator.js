@@ -2,11 +2,11 @@
 
 // data elements using id as they are only one data on the webpage 
 let dataTable = document.getElementById('data-table-for-excel') 
-// let courseTitle = document.getElementById('courseTitle')
-// let course_code = document.getElementById('course_code')
+let courseTitle = document.getElementById('courseTitle').value
+let course_code = document.getElementById('course_code').value
 // let creditHour = document.getElementById('creditHour')
 //  fullMarks = document.getElementById('fullMarks')
-// let teacherName = document.getElementById('teacherName')
+let teacherName = document.getElementById('teacherName').value
 // let excelExport = document.getElementById('excelExport')
 
 // // data elements using classes because all students has same fields of data, ex: id, marks etc.
@@ -31,7 +31,7 @@ let dataTable = document.getElementById('data-table-for-excel')
     let workbook = XLSX.utils.book_new();
     let worksheet = XLSX.utils.table_to_sheet(dataTable);
     XLSX.utils.book_append_sheet(workbook, worksheet, "Data from Result Gradesheet");
-    XLSX.writeFile(workbook, "Presidents.xlsx");
+    XLSX.writeFile(workbook, `${courseTitle}_${course_code}_${teacherName}.xlsx`);
  
 }
 

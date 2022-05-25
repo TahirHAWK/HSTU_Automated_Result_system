@@ -8,7 +8,7 @@ const mongodb = require('mongodb')
  
 let connectionString = 'mongodb+srv://appdev:appdev@appdev.6ppvo.mongodb.net/AppDev?retryWrites=true&w=majority'
 // for online
- 
+
 
 let port = process.env.PORT
 if(port == null || port == ""){
