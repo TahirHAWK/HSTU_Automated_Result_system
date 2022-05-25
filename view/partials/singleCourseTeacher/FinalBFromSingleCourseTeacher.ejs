@@ -17,7 +17,7 @@
         <th scope="row"><input type="hidden" name="ID_Number" id="<%= marks.ID_Number %>" value="<%= marks.ID_Number %>"><%= marks.ID_Number %></th>
         <% coursesData.forEach((courseData) => { %>
           <% if(courseData.course_code == course_code && courseData.finalSubmission == false){ %>
-            <td><input type="text" name="FinalB" value="<%= marks.FinalB %>" onkeypress='enterpressalert(event, this)'></td>
+            <td><input type="text" name="FinalB" value="<%= marks.FinalB %>" onKeyPress="enterpressalert(event, this)" onkeyup="marksBarrier(event, this)"></td>
           <% } else if(courseData.course_code == course_code) { %>
             <td><%= marks.FinalB %></td>
           <% } %>  

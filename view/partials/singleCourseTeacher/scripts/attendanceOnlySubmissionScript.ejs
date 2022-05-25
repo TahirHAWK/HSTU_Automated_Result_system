@@ -87,13 +87,16 @@
     let totalInputs = document.getElementsByTagName("input").length-1
     console.log(document.getElementsByTagName("input").length - 2, "--> input Data")
     let i=0; 
+
+
+
     function enterpressalert(e, codeOfField){
     var code = (e.keyCode ? e.keyCode : e.which);
     if(code == 13) { //Enter keycode
       // in this section we can see what the user has typed, so it can later be compared and used
       // console.log(e.which, code, e.key, codeOfField.name, codeOfField.value)
       
-      codeOfField.value = compareMarkRange(codeOfField.name, codeOfField.value, fullMarks)
+  
 
       // detecting index of input Using lodash.findIndex
       let index = _.findIndex(inputData, (e) => {
@@ -113,4 +116,10 @@
       }
     }
     }
+
+
+    
+    let marksBarrier = function(event, codeOfField){
+      codeOfField.value = compareMarkRange(codeOfField.name, codeOfField.value, fullMarks)
+    } 
 </script>
