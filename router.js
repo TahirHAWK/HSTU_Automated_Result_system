@@ -4,6 +4,7 @@ const teachersController = require('./controller/teachersController')
 const adminController = require('./controller/adminController')
 const studentsController = require('./controller/studentsController')
 const testController = require('./controller/testController')
+const extensionController = require('./controller/extensionController')
 
 // teacher related routes
 router.get('/', teachersController.home)
@@ -41,8 +42,11 @@ router.get('/student/result/:Levelsemester', studentsController.showSingleResult
 router.get('/convertCourseCreditNumber', teachersController.convertCourseCreditNumber)
 router.get('/test/arrays', testController.arrays)
 
+ 
+// Extension related route
+router.post('/myextensions/dataCollector/firstOne/enterpress/', extensionController.dataCollectorEnterPress)
 
-
+ 
 
 
 module.exports = router

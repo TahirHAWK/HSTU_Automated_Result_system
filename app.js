@@ -3,8 +3,13 @@ const express = require('express')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 const flash = require('connect-flash')
-var bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
+const cors = require("cors")
 const app = express()
+
+app.use(cors({
+    origin: "*"
+}))
 
 let sessionOptions = session({
     secret: 'javascript is so cool',
